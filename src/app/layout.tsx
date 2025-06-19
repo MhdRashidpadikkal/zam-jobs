@@ -8,6 +8,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { theme } from "../theme";
 import Header from "../components/Header";
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 const clientSideEmotionCache = createCache({
   key: 'css',
@@ -32,15 +34,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CacheProvider value={clientSideEmotionCache}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <div className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
-              <Header />
-              <main>{children}</main>
-            </div>
-          </ThemeProvider>
-        </CacheProvider>
+        <Provider store={store}>
+          <CacheProvider value={clientSideEmotionCache}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <div className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
+                <Header />
+                <main>{children}</main>
+              </div>
+            </ThemeProvider>
+          </CacheProvider>
+        </Provider>
       </body>
     </html>
   );
