@@ -153,28 +153,28 @@ export default function Hero() {
 
         <Box sx={{ mt: 6, width: '100%' }}>
           <Grid container spacing={3} justifyContent="center">
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{xs: 12, sm: 12, md: 3}}>
               <StatCard
                 icon={<BusinessCenter sx={{ fontSize: '3rem' }} />}
                 value="1,200+"
                 label="Active Companies"
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{xs: 12, sm: 12, md: 3}}>
               <StatCard
                 icon={<Work sx={{ fontSize: '3rem' }} />}
                 value="5,000+"
                 label="Job Openings"
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{xs: 12, sm: 12, md: 3}}>
               <StatCard
                 icon={<People sx={{ fontSize: '3rem' }} />}
                 value="10,000+"
                 label="Happy Employees"
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3}>
+            <Grid size={{xs: 12, sm: 12, md: 3}}>
               <StatCard
                 icon={<TrendingUp sx={{ fontSize: '3rem' }} />}
                 value="95%"

@@ -4,7 +4,7 @@ import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { theme } from "../theme";
 import Header from "../components/Header";
@@ -16,14 +16,9 @@ const clientSideEmotionCache = createCache({
   prepend: true,
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter", 
 });
 
 export default function RootLayout({
@@ -38,7 +33,7 @@ export default function RootLayout({
           <CacheProvider value={clientSideEmotionCache}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <div className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
+              <div className={`${inter.variable} font-sans`}>
                 <Header />
                 <main>{children}</main>
               </div>
