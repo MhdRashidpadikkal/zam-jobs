@@ -58,12 +58,12 @@ export default function Header() {
             href="/jobs"
             sx={{
               px: 2,
-              color: pathname === '/jobs' ? theme.palette.primary.main : theme.palette.secondary.main,
+              color: isActiveRoute(pathname, '/jobs') ? theme.palette.primary.main : theme.palette.secondary.main,
               textDecoration: 'none',
               fontWeight: 'bold',
               fontSize: '1.2rem',
               '&:hover': {
-                color: pathname === '/jobs' ? theme.palette.primary.main : theme.palette.primary.main,
+                color: isActiveRoute(pathname, '/jobs') ? theme.palette.primary.main : theme.palette.primary.main,
               },
             }}
           >
