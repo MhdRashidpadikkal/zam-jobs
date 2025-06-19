@@ -1,10 +1,10 @@
 'use client'
 import { Alert, Box, Button, Card, CardContent, Container, Step, StepLabel, Stepper, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
-import PersonalDetails  from './PersonalDetails'
-import Experience from './Experience'
-import Qualification from './Qualification'
-import Resume from './Resume'
+import PersonalDetails  from './components/PersonalDetails'
+import Experience from './components/Experience'
+import Qualification from './components/Qualification'
+import Resume from './components/Resume'
 
 const steps = ["Personal Information", "Qualification", "Experience", "Upload Resume"]
 
@@ -49,7 +49,7 @@ export default function ApplyPage() {
                 <Typography variant="h4" component="h1" sx={{ mb: 4, color: theme.palette.primary.main, textAlign: "center" }}>
                   Job Application
                 </Typography>
-                <Stepper activeStep={activeStep} sx={{ mb: 4 }} alternativeLabel>
+                <Stepper activeStep={activeStep} sx={{ mb: 4}} alternativeLabel>
                   {steps.map((label) => (
                     <Step key={label}>
                       <StepLabel>{label}</StepLabel>
@@ -58,10 +58,6 @@ export default function ApplyPage() {
                 </Stepper>
                 <Box component="form" >
                   {getStepContent(activeStep)}
-                  
-                  
-                  
-                  
 
                   <Box sx={{ display: "flex", justifyContent:activeStep === 0? "end": "space-between", mt: 5 }}>
                     <Button
