@@ -47,12 +47,13 @@ export default function Header() {
     setToggle(toggle);
   };
 
+
   return (
-    <Box>
+    <Box sx={{marginBottom:{xs:'70px',md:'100px'}}}>
       <Box
         sx={{
           position: "relative",
-          top: "50px",
+          top:"50px",
           flexGrow: 1,
           display: "flex",
           justifyContent: "center",
@@ -118,6 +119,7 @@ export default function Header() {
                         ? theme.palette.primary.main
                         : theme.palette.secondary.contrastText,
                     textDecoration: "none",
+                    fontWeight:'600',
                     fontSize: "1.1rem",
                     "&:hover": {
                       color:
@@ -207,6 +209,7 @@ export default function Header() {
                 );
               })}
               <Box
+              onClick={toggleDrawer(false)}
                 component={Link}
                 href="/apply"
                 sx={{
