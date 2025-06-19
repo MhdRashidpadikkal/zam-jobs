@@ -8,6 +8,7 @@ export const theme = createTheme({
     },
     secondary: {
       main: '#00509D',
+      contrastText:'#909090'
     },
     background: {
       default: '#F5F7FA',
@@ -22,7 +23,7 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Inter", sans-serif',
+    fontFamily: 'var(--font-inter), "Inter", sans-serif',
     h1: {
       fontWeight: 700,
       fontSize: '2.5rem',
@@ -80,6 +81,6 @@ export const theme = createTheme({
           },
         },
       },
-    },
+    }
   },
 });

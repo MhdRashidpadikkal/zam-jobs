@@ -1,50 +1,26 @@
-"use client";
 
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { Provider } from 'react-redux';
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { theme } from "../theme";
-import { store } from "../store/slices/store";
-import Header from "../components/Header";
+import { Inter } from "next/font/google";
+import Providers from './providers';
+import { CssBaseline } from "@mui/material";
 
-const clientSideEmotionCache = createCache({
-  key: 'css',
-  prepend: true,
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body>
-        <Provider store={store}>
-          <CacheProvider value={clientSideEmotionCache}>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <div className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
-                <Header />
-                <main>{children}</main>
-              </div>
-            </ThemeProvider>
-          </CacheProvider>
-        </Provider>
+      <body className={`${inter.variable} font-sans`}>
+      <CssBaseline />
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
