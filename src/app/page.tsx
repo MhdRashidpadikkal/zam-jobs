@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
       <Typography
-  variant="h2" // Material UI styling
-  component="h2" // actual HTML tag
+  variant="h2" 
+  component="h2" 
   sx={{
     fontSize: 64,
     fontWeight: 500,
