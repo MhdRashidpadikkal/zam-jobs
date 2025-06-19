@@ -18,7 +18,6 @@ const clientSideEmotionCache = createCache({
 
 export default function Providers({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    console.log("pathname : ", pathname);
   return (
     <ReduxProvider store={store}>
       <CacheProvider value={clientSideEmotionCache}>

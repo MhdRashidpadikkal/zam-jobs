@@ -32,9 +32,9 @@ export default function Resume () {
                         }
                       />
                     </Button>
-                    {formData.files?.resume && (
+                    {formData?.files?.resume && (
                       <Typography variant="body2" mt={1}>
-                        {formData.files.resume.name}
+                        {formData?.files.resume.name}
                       </Typography>
                     )}
                 
