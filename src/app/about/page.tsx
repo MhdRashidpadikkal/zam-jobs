@@ -23,7 +23,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 4}}>
       <Typography variant="h4" component="h1" sx={{ mb: 4, color: 'primary.main', textDecoration: 'none' }}>
         About Us
       </Typography>
