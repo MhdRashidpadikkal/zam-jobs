@@ -23,7 +23,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 4}}>
       <Typography variant="h4" component="h1" sx={{ mb: 4, color: 'primary.main', textDecoration: 'none' }}>
         About Us
       </Typography>
@@ -40,7 +40,7 @@ export default function AboutPage() {
       </Typography>
       <Grid container spacing={4}>
         {teamMembers.map((member, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid key={index}>
             <Card sx={{ height: '100%' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>

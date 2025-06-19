@@ -9,19 +9,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Typography
-  variant="h2" // Material UI styling
-  component="h2" // actual HTML tag
-  sx={{
-    fontSize: 64,
-    fontWeight: 500,
-    color: "primary.main",
-    textAlign: "center",
-  }}
->
-  How our platform makes your job search easier
-</Typography>
+    <Container maxWidth="lg"  sx={
+      {
+        bgcolor: 'red'
+      }
+    } >
       <Hero />
     </Container>
   );
