@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography, Container, TextField, Button, Paper, Select, Grid, FormControl, InputLabel, MenuItem } from '@mui/material';
+import { Typography, Container, TextField, Button, Paper, Select, Grid, FormControl, InputLabel, MenuItem } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 export default function ContactPage() {

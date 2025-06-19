@@ -1,70 +1,167 @@
 "use client";
 
-import { Box, Typography, Container, Grid, Card, CardContent, Button, useTheme } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Button,
+  useTheme,
+  useMediaQuery,
+  Paper
+} from '@mui/material';
+import { FilterList, Work } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '../../store/slices/hooks';
+import { setSelectedJob, filterJobs } from '../../store/slices/jobSlice';
+import { Job } from '../../types/job';
+import JobCard from '../../components/JobCard';
+import JobFilterSidebar from '../../components/JobFilterSidebar';
+import SortDropdown from '../../components/SortDropdown';
+import PaginationControl from '../../components/PaginationControl';
+import HiringBanner from '../../components/HiringBanner';
+import ViewToggle from '../../components/ViewToggle';
 
-export default function JobsPage() {
+const JobListingsPage: React.FC = () => {
   const theme = useTheme();
-  const jobList = [
-    {
-      title: "Senior Software Engineer",
-      company: "Tech Innovations Inc.",
-      location: "Remote",
-      type: "Full-time"
-    },
-    {
-      title: "UI/UX Designer",
-      company: "Creative Agency",
-      location: "New York",
-      type: "Part-time"
-    },
-    {
-      title: "Product Manager",
-      company: "ProductCraft",
-      location: "San Francisco",
-      type: "Full-time"
-    }
-  ];
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  
+  const { filteredJobs, pagination } = useAppSelector((state) => state.jobs);
+  const [filterSidebarOpen, setFilterSidebarOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'card' | 'list'>('card');
+
+  useEffect(() => {
+    dispatch(filterJobs());
+  }, [dispatch]);
+
+  const handleViewDetails = (job: Job) => {
+    dispatch(setSelectedJob(job));
+    router.push(`/jobs/${job.id}`);
+  };
+
+  const handleViewChange = (newViewMode: 'card' | 'list') => {
+    setViewMode(newViewMode);
+  };
+
+  // Get current page jobs
+  const startIndex = (pagination.currentPage - 1) * pagination.jobsPerPage;
+  const endIndex = startIndex + pagination.jobsPerPage;
+  const currentJobs = filteredJobs.slice(startIndex, endIndex);
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h4" component="h1" sx={{ mb: 4, color: 'primary.main', textDecoration: 'none' }}>
-        Available Jobs
-      </Typography>
+    <Box sx={{ minHeight: '100vh', backgroundColor: theme.palette.grey[50] }}>
+      {/* Hiring Banner */}
+      <HiringBanner />
 
-      <Grid container spacing={4}>
-        {jobList.map((job, index) => (
-          <Grid item xs={12} md={4} key={index}>
-            <Card sx={{ height: '100%' }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {job.title}
+      <Container maxWidth="xl">
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          {/* Filter Sidebar */}
+          {!isMobile && (
+            <JobFilterSidebar open={false} onClose={() => {}} />
+          )}
+
+          {/* Main Content */}
+          <Box sx={{ flex: 1 }}>
+            {/* Header with filters and sort */}
+            <Paper sx={{ p: isMobile ? 2 : 3, mb: 3 }}>
+              <Box sx={{ 
+                display: 'flex', 
+                flexDirection: isMobile ? 'column' : 'row',
+                justifyContent: 'space-between', 
+                alignItems: isMobile ? 'stretch' : 'center',
+                flexWrap: 'wrap',
+                gap: isMobile ? 2 : 2
+              }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: isMobile ? 'column' : 'row',
+                  alignItems: isMobile ? 'flex-start' : 'center', 
+                  gap: isMobile ? 1 : 2 
+                }}>
+                  <Typography variant="h6" sx={{ 
+                    fontWeight: 600,
+                    fontSize: isMobile ? '1.1rem' : '1.25rem'
+                  }}>
+                    {filteredJobs.length} Jobs Found
+                  </Typography>
+                  {isMobile && (
+                    <Button
+                      variant="outlined"
+                      startIcon={<FilterList />}
+                      onClick={() => setFilterSidebarOpen(true)}
+                      size="small"
+                      sx={{ alignSelf: 'flex-start' }}
+                    >
+                      Filters
+                    </Button>
+                  )}
+                </Box>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: isMobile ? 'column' : 'row',
+                  alignItems: isMobile ? 'stretch' : 'center', 
+                  gap: isMobile ? 1 : 2 
+                }}>
+                  <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
+                  <SortDropdown />
+                </Box>
+              </Box>
+            </Paper>
+
+            {/* Job Cards/List */}
+            {currentJobs.length > 0 ? (
+              viewMode === 'card' ? (
+                <Box sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: { 
+                    xs: '1fr', 
+                    sm: 'repeat(2, 1fr)', 
+                    lg: 'repeat(3, 1fr)' 
+                  },
+                  gap: 2
+                }}>
+                  {currentJobs.map((job) => (
+                    <Box key={job.id}>
+                      <JobCard job={job} onViewDetails={handleViewDetails} viewMode="card" />
+                    </Box>
+                  ))}
+                </Box>
+              ) : (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                  {currentJobs.map((job) => (
+                    <JobCard key={job.id} job={job} onViewDetails={handleViewDetails} viewMode="list" />
+                  ))}
+                </Box>
+              )
+            ) : (
+              <Paper sx={{ p: 6, textAlign: 'center' }}>
+                <Typography variant="h5" sx={{ mb: 2, color: theme.palette.text.secondary }}>
+                  No jobs found
                 </Typography>
-                <Typography color="text.secondary" paragraph>
-                  {job.company}
+                <Typography variant="body1" color="text.secondary">
+                  Try adjusting your filters or search criteria
                 </Typography>
-                <Typography color="text.secondary" paragraph>
-                  Location: {job.location}
-                </Typography>
-                <Typography color="text.secondary" paragraph>
-                  Type: {job.type}
-                </Typography>
-                <Button
-                  variant="contained"
-                  sx={{
-                    mt: 2,
-                    backgroundColor: theme.palette.primary.main,
-                    '&:hover': {
-                      backgroundColor: theme.palette.secondary.main,
-                    }
-                  }}
-                >
-                  Apply Now
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
+              </Paper>
+            )}
+
+            {/* Pagination */}
+            <PaginationControl />
+          </Box>
+        </Box>
+      </Container>
+
+      {/* Mobile Filter Sidebar */}
+      {isMobile && (
+        <JobFilterSidebar 
+          open={filterSidebarOpen} 
+          onClose={() => setFilterSidebarOpen(false)} 
+        />
+      )}
+    </Box>
   );
-}
+};
+
+export default JobListingsPage;
