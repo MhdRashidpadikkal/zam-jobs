@@ -53,12 +53,13 @@ export default function Header() {
       <Box
         sx={{
           position: "relative",
-          top:"50px",
+          top:"30px",
           flexGrow: 1,
           display: "flex",
           justifyContent: "center",
-          width: "100vw",
+          // width: "100vw",
           zIndex: "10",
+          
         }}
       >
         <Box
@@ -71,6 +72,7 @@ export default function Header() {
             px: 2,
             border: 1,
             borderColor: "#D8D8DB",
+            backgroundColor:'white'
           }}
         >
           {/* Left side: Logo */}
@@ -117,7 +119,7 @@ export default function Header() {
                     color:
                       pathname === items.url
                         ? theme.palette.primary.main
-                        : theme.palette.secondary.contrastText,
+                        : theme.palette.primary.contrastText,
                     textDecoration: "none",
                     fontWeight:'600',
                     fontSize: "1.1rem",
@@ -147,7 +149,7 @@ export default function Header() {
                 },
               }}
             >
-              <DehazeIcon sx={{ color: theme.palette.primary.contrastText }} />
+              <DehazeIcon sx={{ color:'white' }} />
             </IconButton>
           </Box>
 
@@ -183,7 +185,7 @@ export default function Header() {
                 return (
                   <ListItem
                     onClick={toggleDrawer(false)}
-                    sx={{ padding: 3, borderBottom: "1px solid gray" }}
+                    sx={{ padding: 2, borderBottom: "1px solid gray" }}
                     key={index}
                     component={Link}
                     href={item.url}
@@ -193,7 +195,7 @@ export default function Header() {
                         color:
                           pathname === item.url
                             ? theme.palette.primary.main
-                            : theme.palette.secondary.contrastText,
+                            : theme.palette.primary.contrastText,
                         fontSize: "16px",
                         fontWeight: "600",
                         "&:hover": {

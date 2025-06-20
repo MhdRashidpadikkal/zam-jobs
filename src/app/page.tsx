@@ -1,4 +1,4 @@
-import { Container, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import Hero from '@/components/Hero';
 import type { Metadata } from "next";
 // import AboutPage from './about/page';
@@ -10,13 +10,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Container maxWidth="lg"  sx={
-      {
-        bgcolor: 'red'
-      }
-    } >
+    <Box>
       <Hero />
-      {/* <AboutPage/> */}
-    </Container>
+    </Box>
   );
 }
