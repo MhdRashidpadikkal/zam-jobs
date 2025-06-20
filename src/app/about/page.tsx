@@ -40,7 +40,7 @@ export default function AboutPage() {
       </Typography>
       <Grid container spacing={4}>
         {teamMembers.map((member, index) => (
-          <Grid item xs={12} md={4} key={index}>
+          <Grid key={index}>
             <Card sx={{ height: '100%' }}>
               <CardContent>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>

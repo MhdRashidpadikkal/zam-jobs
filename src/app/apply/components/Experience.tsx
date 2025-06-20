@@ -20,25 +20,25 @@ export default function Experience () {
                 <Grid size={{xs:12,sm:6,md:4}}>
                     <TextField label="Current Company"
                     name="currentCompany"
-                    fullWidth value={formData.experience.currentCompany}
+                    fullWidth value={formData?.experience.currentCompany}
                     onChange={(e)=>handleChange("experience","currentCompany",e.target.value)} />
                 </Grid>
                 <Grid size={{xs:12,sm:6,md:4}}>
                     <TextField label="Current Position"
                     name="currentPosition"
-                    fullWidth value={formData.experience.currentPosition}
+                    fullWidth value={formData?.experience.currentPosition}
                     onChange={(e)=>handleChange("experience","currentPosition",e.target.value)} />
                 </Grid>
                 <Grid size={{xs:12,sm:6,md:4}}>
                     <TextField label="Experience (in years)"
                     name="yearsOfExperience"
-                    fullWidth value={formData.experience.yearsOfExperience}
+                    fullWidth value={formData?.experience.yearsOfExperience}
                     onChange={(e)=>handleChange("experience","yearsOfExperience",e.target.value)} />
                 </Grid>
                 <Grid size={{xs:12,sm:6,md:4}}>
                     <TextField label="I am a Fresher"
                     name="isfresher"
-                    fullWidth value={formData.experience.isfresher}
+                    fullWidth value={formData?.experience.isfresher}
                     onChange={(e)=>handleChange("experience","isfresher",e.target.value)} />
                 </Grid>
                 

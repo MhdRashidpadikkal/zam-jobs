@@ -18,13 +18,13 @@ export default function Qualification () {
         <Box sx={{ width: '100%' }}>
             <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid size={{xs:12,sm:6,md:4}}>
-                    <TextField label="Qualification" name="title" fullWidth value={formData.higherQualification.title} onChange={(e)=>handleChange("higherQualification","title",e.target.value)} />
+                    <TextField label="Qualification" name="title" fullWidth value={formData?.higherQualification.title} onChange={(e)=>handleChange("higherQualification","title",e.target.value)} />
                 </Grid>
                 <Grid size={{xs:12,sm:6,md:4}}>
-                    <TextField label="Institute Name" name="institute" fullWidth value={formData.higherQualification.institute} onChange={(e)=>handleChange("higherQualification","institute",e.target.value)} />
+                    <TextField label="Institute Name" name="institute" fullWidth value={formData?.higherQualification.institute} onChange={(e)=>handleChange("higherQualification","institute",e.target.value)} />
                 </Grid>
                 <Grid size={{xs:12,sm:6,md:4}}>
-                    <TextField label="Year Completed" name="yearCompleted" fullWidth value={formData.higherQualification.yearCompleted} onChange={(e)=>handleChange("higherQualification","yearCompleted",e.target.value)} />
+                    <TextField label="Year Completed" name="yearCompleted" fullWidth value={formData?.higherQualification.yearCompleted} onChange={(e)=>handleChange("higherQualification","yearCompleted",e.target.value)} />
                 </Grid>
                 
             </Grid>
