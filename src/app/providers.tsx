@@ -6,7 +6,7 @@ import createCache from "@emotion/cache";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Provider as ReduxProvider } from "react-redux";
-import { store } from "../store/slices/store";
+import { store } from "../store/store";
 import { theme } from "@/theme";
 import Header from "@/components/Header";
 import { usePathname } from "next/navigation";
