@@ -5,15 +5,17 @@ import PersonalDetails  from './components/PersonalDetails'
 import Experience from './components/Experience'
 import Qualification from './components/Qualification'
 import Resume from './components/Resume'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 
 const steps = ["Personal Information", "Qualification", "Experience", "Upload Resume"]
 
 export default function ApplyPage() {
-  
+  const formData =useSelector((state :RootState)=>state.form)
   const [activeStep,setActiveStep]=useState(0)
   const theme=useTheme()
   const handleBack=()=>setActiveStep(activeStep - 1)
-  const handleNext=()=>setActiveStep(activeStep + 1)
+  const handleNext=()=> setActiveStep(activeStep + 1)
   const getStepContent=(step:number)=>{
     switch (step) {
       case 0:
