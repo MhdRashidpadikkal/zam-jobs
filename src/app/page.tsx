@@ -1,6 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import Hero from '@/components/Hero';
 import type { Metadata } from "next";
+// import AboutPage from './about/page';
 
 export const metadata: Metadata = {
   title: "Zam Job",
@@ -15,6 +16,7 @@ export default function Home() {
       }
     } >
       <Hero />
+      {/* <AboutPage/> */}
     </Container>
   );
 }
