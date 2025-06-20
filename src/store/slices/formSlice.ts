@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface FormState {
+export interface FormState {
   personalInfo: {
     firstName: string;
     lastName: string;
@@ -11,7 +11,7 @@ interface FormState {
     preferredLocation: string;
   };
   higherQualification: {
-    title:string;
+    qualification:string;
     institute:string;
     yearCompleted:string;
   };
@@ -37,7 +37,7 @@ const initialState: FormState = {
     preferredLocation: '',
   },
   higherQualification: {
-    title:'',
+    qualification:'',
     institute:'',
     yearCompleted:'',
   },
