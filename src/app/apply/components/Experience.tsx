@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
 import { updateField, resetForm } from "@/store/slices/formSlice";
 
-export default function Experience () {
+export default function Experience ({ errors }: { errors: any }) {
     const dispatch=useDispatch();
     const formData=useSelector((state :RootState)=>state.form);
     const handleChange=(section:any,field:string,value:string |File |boolean|null)=>{
