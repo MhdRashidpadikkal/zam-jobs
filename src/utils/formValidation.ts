@@ -26,14 +26,20 @@ export const validateExperience = (data: FormState["experience"]) => {
   if (!data.isfresher && !data.currentCompany.trim()) {
     errors.currentCompany = "Company is required";
   }
+  if (!data.isfresher && !data.currentCompany.trim()) {
+    errors.currentPosition = "Curent position is required";
+  }
+  if (!data.isfresher && !data.currentCompany.trim()) {
+    errors.yearsOfExperience = "Years of Experience  is required";
+  }
 
   return errors;
 };
 
-export const validateResume = (data: FormState["files"]) => {
-  const errors: { resume?: string } = {};
+// export const validateResume = (data: FormState["files"]) => {
+//   const errors: { resume?: string } = {};
 
-  if (!data?.resume) errors.resume = "Resume is required";
+//   if (!data?.resume) errors.resume = "Resume is required";
 
-  return errors;
-};
+//   return errors;
+// };
