@@ -14,6 +14,7 @@ import Qualification from './Qualification'
 import Resume from './Resume'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import SuccessAlert from './SucessMessage';
 
 const steps = ["Personal Information", "Qualification", "Experience", "Upload Resume"]
 
@@ -87,9 +88,8 @@ export default function ApplyForm() {
     <>
         <Container maxWidth="md" sx={{ py: 5 }}>
           {isSuccess ? (
-                  <Alert severity="success" sx={{ mb: 4 }}>
-                    Your application has been submitted successfully!
-                  </Alert>
+                  <SuccessAlert/>
+                  
           ) : (
             <Card elevation={6} sx={{ borderRadius: 3 }}>
               <CardContent>
@@ -127,7 +127,9 @@ export default function ApplyForm() {
                       variant="contained"
                       sx={{
                         px: 4,
-                        backgroundColor: theme.palette.primary.main,
+                        background: activeStep === steps.length - 1 
+                        ? 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)' 
+                        : theme.palette.primary.main,
                         color: theme.palette.primary.contrastText,
                         '&:hover': {
                           backgroundColor: theme.palette.secondary.main,
