@@ -1,14 +1,9 @@
 "use client";
 
-import { Box, Typography, Container, Button, useTheme, Grid, Paper } from '@mui/material';
-import { motion } from 'framer-motion';
-import {
-  BusinessCenter,
-  Work,
-  People,
-  TrendingUp,
-} from '@mui/icons-material';
-import Header from './Header';
+import { Box, Typography, Button, useTheme} from "@mui/material";
+import { motion } from "framer-motion";
+import Header from "./Header";
+import Image from "next/image";
 
 const ButtonWithRotate = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
@@ -16,26 +11,26 @@ const ButtonWithRotate = ({ children }: { children: React.ReactNode }) => {
     <motion.div
       whileHover={{
         scale: 1.05,
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
       whileTap={{
         scale: 0.95,
-        transition: { duration: 0.1 }
+        transition: { duration: 0.1 },
       }}
     >
       <Button
         variant="outlined"
         sx={{
-          textTransform: 'none',
+          textTransform: "none",
           borderRadius: 2,
           borderColor: theme.palette.primary.main,
           color: theme.palette.primary.main,
           minWidth: 160,
           height: 50,
-          '&:hover': {
+          "&:hover": {
             borderColor: theme.palette.primary.dark,
             color: theme.palette.primary.dark,
-          }
+          },
         }}
       >
         {children}
@@ -44,162 +39,238 @@ const ButtonWithRotate = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const StatCard = ({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) => (
-  <Paper
-    elevation={3}
-    sx={{
-      p: 3,
-      textAlign: 'center',
-      borderRadius: 2,
-      transition: 'transform 0.3s ease',
-      '&:hover': {
-        transform: 'translateY(-5px)',
-      }
-    }}
-  >
-    <Box sx={{ color: 'primary.main', fontSize: '2.5rem', mb: 1 }}>{icon}</Box>
-    <Typography variant="h4" sx={{ mb: 1, fontWeight: 'bold' }}>{value}</Typography>
-    <Typography variant="body1" color="text.secondary">{label}</Typography>
-  </Paper>
-);
-
 export default function Hero() {
   const theme = useTheme();
 
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Typography
-  variant="h2" 
-  component="h2" 
-  sx={{
-    fontSize: 64,
-    fontWeight: 500,
-    color: "primary.main",
-    textAlign: "center",
-  }}
->
-  How our platform makes your job search easier
-</Typography>
+    <Box sx={{}}>
       <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          gap: 4,
-          minHeight: '60vh',
-          backgroundColor:'red'
-        }}
+        sx={(theme) => ({
+          border: `1px solid ${theme.palette.secondary.contrastText}`,
+          margin: { xs: 1, md: 2 },
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          borderRadius: 5,
+          backgroundImage: `
+      radial-gradient(circle at top,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.8) 30%,
+        rgba(255, 255, 255, 0.8) 40%,
+        rgba(0, 45, 98, 1) 100%
+      ),
+      radial-gradient(lightgray 1px, transparent 0)
+    `,
+          backgroundSize: "cover, 10px 10px",
+          backgroundPosition: "center, 0 0",
+          boxShadow: "0 0 40px rgba(199, 198, 198, 0.5)",
+        })}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+        <Box>
+          <Header />
+        </Box>
+
+        <Box>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Typography
+                variant="h6"
+                component="h1"
+                sx={{
+                  mb: 1,
+                  color: theme.palette.text.secondary,
+                  fontWeight: "500",
+                  background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+                  backgroundClip: "text",
+                  borderRadius: 2,
+                  border: `1px solid ${theme.palette.secondary.contrastText}`,
+                  px: 2,
+                }}
+              >
+                Find Your Dream Job
+              </Typography>
+            </motion.div>
+          </Box>
+
           <Typography
-            variant="h3"
-            component="h1"
+            variant="h2"
+            component="h2"
             sx={{
-              mb: 4,
-              color: theme.palette.primary.main,
-              fontWeight: 'bold',
-              background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              fontSize: { xs: 35, md: 64 },
+              fontWeight: 500,
+              color: "primary.main",
+              textAlign: "center",
+              lineHeight: 1.4,
             }}
           >
-            Find Your Dream Job
-          </Typography>
-        </motion.div>
-
-        <Header />
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              mb: 4,
-              color: theme.palette.text.secondary,
-              maxWidth: '600px'
-            }}
-          >
-            Discover exciting opportunities in your field. Connect with top employers and start your journey to success.
-          </Typography>
-        </motion.div>
-
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 2,
-            justifyContent: 'center',
-            flexWrap: 'wrap'
-          }}
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Button
-              variant="contained"
+            How our platform makes your job search{" "}
+            <Box
+              component="span"
               sx={{
-                textTransform: 'none',
+                fontSize: { xs: 35, md: 64 },
+                fontWeight: 500,
+                textAlign: "center",
+                backgroundImage: `linear-gradient(180deg, rgba(0, 45, 98, 1), rgba(59, 130, 246, 1))`,
+                color: "white",
+                px: 3,
                 borderRadius: 2,
-                minWidth: 160,
-                height: 50,
-                fontSize: '1rem',
-                '&:hover': {
-                  transform: 'translateY(-2px)'
-                }
               }}
             >
-              View Jobs
-            </Button>
-          </motion.div>
+              Easier
+            </Box>
+          </Typography>
 
-          <ButtonWithRotate>
-            Apply Now
-          </ButtonWithRotate>
-        </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "space-between",
+              textAlign: "center",
+              gap: 4,
+              minHeight: "60vh",
+              px: 2,
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  fontSize: { xs: "13px", md: "20px" },
+                  mb: 3,
+                  mt: 2,
+                  color: theme.palette.primary.contrastText,
+                  maxWidth: "600px",
+                }}
+              >
+                Discover exciting opportunities in your field. Connect with top
+                employers and start your journey to success.
+              </Typography>
+            </motion.div>
 
-        <Box sx={{ mt: 6, width: '100%' }}>
-          <Grid container spacing={3} justifyContent="center">
-            <Grid size={{xs: 12, sm: 12, md: 3}}>
-              <StatCard
-                icon={<BusinessCenter sx={{ fontSize: '3rem' }} />}
-                value="1,200+"
-                label="Active Companies"
-              />
-            </Grid>
-            <Grid size={{xs: 12, sm: 12, md: 3}}>
-              <StatCard
-                icon={<Work sx={{ fontSize: '3rem' }} />}
-                value="5,000+"
-                label="Job Openings"
-              />
-            </Grid>
-            <Grid size={{xs: 12, sm: 12, md: 3}}>
-              <StatCard
-                icon={<People sx={{ fontSize: '3rem' }} />}
-                value="10,000+"
-                label="Happy Employees"
-              />
-            </Grid>
-            <Grid size={{xs: 12, sm: 12, md: 3}}>
-              <StatCard
-                icon={<TrendingUp sx={{ fontSize: '3rem' }} />}
-                value="95%"
-                label="Placement Rate"
-              />
-            </Grid>
-          </Grid>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                justifyContent: "center",
+                flexWrap: "wrap",
+                mb: 5,
+              }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "white",
+                    textTransform: "none",
+                    borderRadius: 2,
+                    minWidth: 160,
+                    height: 50,
+                    fontSize: "1rem",
+                    "&:hover": {
+                      transform: "translateY(-2px)",
+                    },
+                  }}
+                >
+                  View Jobs
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "black",
+                    backgroundColor: "white",
+                    textTransform: "none",
+                    borderRadius: 2,
+                    minWidth: 160,
+                    height: 50,
+                    fontSize: "1rem",
+                    "&:hover": {
+                      transform: "translateY(-2px)",
+                    },
+                  }}
+                >
+                  Apply Now
+                </Button>
+              </motion.div>
+            </Box>
+
+            <Box sx={{ position: "relative" }}>
+              <Box
+                sx={{
+                  margin: -0.8,
+                  padding: 0,
+                  overflow: "hidden",
+                  width: { xs: "160px", sm: "250px", md: "350px", lg: "300px" },
+                }}
+              >
+                <Image
+                  src="/images/banner.png"
+                  alt="add-iphone-image.png"
+                  width={400}
+                  height={400}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "-60%",
+                  boxShadow: 5,
+                  width: "70%",
+                  height: "45%",
+                  borderRadius: 10,
+                }}
+              >
+                <Image
+                  src="/images/banner2.jpg"
+                  alt="banner4.jpg"
+                  width={280}
+                  height={230}
+                  style={{ borderRadius: 10, width: "100%", height: "100%" }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "10%",
+                  right: "-60%",
+                  boxShadow: 5,
+                  width: "70%",
+                  height: "45%",
+                  borderRadius: 10,
+                }}
+              >
+                <Image
+                  src="/images/banner3.jpg"
+                  alt="banner3.jpg"
+                  width={280}
+                  height={230}
+                  style={{ borderRadius: 10, width: "100%", height: "100%" }}
+                />
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }
