@@ -37,9 +37,6 @@ export default function Resume () {
                         {formData?.files.resume.name}
                       </Typography>
                     )}
-                
-        
-                
             </Grid>
        </Box>
         
