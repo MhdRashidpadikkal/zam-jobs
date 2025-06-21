@@ -5,7 +5,6 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
   Button,
   useTheme,
   useMediaQuery,
@@ -118,7 +117,7 @@ const JobListingsPage: React.FC = () => {
                   },
                   gap: 2
                 }}>
-                  {currentJobs.map((job) => (
+                  {currentJobs.map((job: Job) => (
                     <Box key={job.id}>
                       <JobCard job={job} onViewDetails={handleViewDetails} viewMode="card" />
                     </Box>
@@ -126,7 +125,7 @@ const JobListingsPage: React.FC = () => {
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-                  {currentJobs.map((job) => (
+                  {currentJobs.map((job: Job) => (
                     <JobCard key={job.id} job={job} onViewDetails={handleViewDetails} viewMode="list" />
                   ))}
                 </Box>

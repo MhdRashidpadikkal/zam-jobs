@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Container,
   Drawer,
   IconButton,
   List,
@@ -47,17 +48,19 @@ export default function Header() {
     setToggle(toggle);
   };
 
+
   return (
-    <Box>
+    <Container maxWidth="lg" sx={{marginBottom:{xs:'70px',md:'100px'}}}>
       <Box
         sx={{
           position: "relative",
-          top: "50px",
+          top:"30px",
           flexGrow: 1,
           display: "flex",
           justifyContent: "center",
-          width: "100vw",
+          // width: "100vw",
           zIndex: "10",
+          
         }}
       >
         <Box
@@ -70,6 +73,7 @@ export default function Header() {
             px: 2,
             border: 1,
             borderColor: "#D8D8DB",
+            backgroundColor:'white'
           }}
         >
           {/* Left side: Logo */}
@@ -116,8 +120,9 @@ export default function Header() {
                     color:
                       pathname === items.url
                         ? theme.palette.primary.main
-                        : theme.palette.secondary.contrastText,
+                        : theme.palette.primary.contrastText,
                     textDecoration: "none",
+                    fontWeight:'600',
                     fontSize: "1.1rem",
                     "&:hover": {
                       color:
@@ -145,7 +150,7 @@ export default function Header() {
                 },
               }}
             >
-              <DehazeIcon sx={{ color: theme.palette.primary.contrastText }} />
+              <DehazeIcon sx={{ color:'white' }} />
             </IconButton>
           </Box>
 
@@ -155,14 +160,14 @@ export default function Header() {
             sx={{
               display: { xs: "none", md: "flex" },
               color: "white",
-              backgroundColor: theme.palette.primary.main,
+              backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
               textDecoration: "none",
               px: 4,
               py: 2,
               borderRadius: "50px",
               transition: "background-color 0.3s ease",
               "&:hover": {
-                backgroundColor: theme.palette.secondary.main,
+                backgroundImage: `linear-gradient(135deg,rgb(15, 63, 141), ${theme.palette.primary.dark})`,
               },
             }}
           >
@@ -181,7 +186,7 @@ export default function Header() {
                 return (
                   <ListItem
                     onClick={toggleDrawer(false)}
-                    sx={{ padding: 3, borderBottom: "1px solid gray" }}
+                    sx={{ padding: 2, borderBottom: "1px solid gray" }}
                     key={index}
                     component={Link}
                     href={item.url}
@@ -191,7 +196,7 @@ export default function Header() {
                         color:
                           pathname === item.url
                             ? theme.palette.primary.main
-                            : theme.palette.secondary.contrastText,
+                            : theme.palette.primary.contrastText,
                         fontSize: "16px",
                         fontWeight: "600",
                         "&:hover": {
@@ -207,12 +212,13 @@ export default function Header() {
                 );
               })}
               <Box
+              onClick={toggleDrawer(false)}
                 component={Link}
                 href="/apply"
                 sx={{
                   display: { xs: "flex", md: "none", justifyContent: "center" },
                   color: "white",
-                  backgroundColor: theme.palette.primary.main,
+                  backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
                   textDecoration: "none",
                   px: 4,
                   py: 2,
@@ -220,7 +226,7 @@ export default function Header() {
                   borderRadius: "10px",
                   transition: "background-color 0.3s ease",
                   "&:hover": {
-                    backgroundColor: theme.palette.secondary.main,
+                    backgroundImage: `linear-gradient(135deg,rgb(15, 63, 141), ${theme.palette.primary.dark})`,
                   },
                 }}
               >
@@ -250,6 +256,6 @@ export default function Header() {
           </Drawer>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 }

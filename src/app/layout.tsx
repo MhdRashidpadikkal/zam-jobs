@@ -1,18 +1,13 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
-import Providers from './providers';
 import { CssBaseline } from "@mui/material";
-import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Providers from "./providers";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
-
-export const metadata: Metadata = {
-  title: "Zam Job",
-  description: "Job portal and management system",
-};
 
 export default async function RootLayout({
   children,
@@ -22,9 +17,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-      <CssBaseline />
+        <CssBaseline />
         <Providers>
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>
