@@ -129,7 +129,7 @@ const WorkingProcess = () => {
               variant="h2"
               component="h1"
               sx={{
-                fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' },
+                fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
                 fontWeight: 700,
                 color: '#1a202c',
                 mb: 3,
