@@ -5,20 +5,26 @@ import {
   MenuItem,
   InputLabel,
   useTheme,
-  useMediaQuery,
-  SelectChangeEvent
+  useMediaQuery
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../store/slices/hooks';
-import { setSortBy } from '../store/slices/jobSlice';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 const SortDropdown: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const dispatch = useAppDispatch();
-  const { sortBy } = useAppSelector((state) => state.jobs);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const sortBy = searchParams.get('sortBy') || 'latest';
 
-  const handleSortChange = (value: 'latest' | 'salary' | 'title' | 'company') => {
-    dispatch(setSortBy(value));
+  const handleSortChange = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (value) {
+      params.set('sortBy', value);
+    } else {
+      params.delete('sortBy');
+    }
+    router.push(pathname + '?' + params.toString());
   };
 
   return (
@@ -27,7 +33,7 @@ const SortDropdown: React.FC = () => {
       <Select
         value={sortBy}
         label="Sort by"
-        onChange={(e) => handleSortChange(e.target.value as 'latest' | 'salary' | 'title' | 'company')}
+        onChange={(e) => handleSortChange(e.target.value)}
       >
         <MenuItem value="latest">Latest</MenuItem>
         <MenuItem value="salary">Salary</MenuItem>

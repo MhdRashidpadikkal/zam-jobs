@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Box,
   Typography,
-  TextField,
   FormControl,
   InputLabel,
   Select,
@@ -16,32 +15,36 @@ import {
   IconButton
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '../store/slices/hooks';
-import { setFilters, filterJobs, clearFilters } from '../store/slices/jobSlice';
-import { categories, jobTypes, experienceLevels, locations } from '../data/mockJobs';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { categories, jobTypes, experienceLevels, locations } from '../../../data/mockJobs';
 
 interface JobFilterSidebarProps {
-  open: boolean;
-  onClose: () => void;
+  open?: boolean;
+  onClose?: () => void;
 }
 
 const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({ open, onClose }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const dispatch = useAppDispatch();
-  const { filters } = useAppSelector((state) => state.jobs);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const handleFilterChange = (key: string, value: string | number | [number, number]) => {
-    dispatch(setFilters({ [key]: value }));
+  const handleFilterChange = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+    // Reset page to 1 when filters change
+    params.set('page', '1');
+    router.push(pathname + '?' + params.toString());
   };
 
   const handleClearFilters = () => {
-    dispatch(clearFilters());
+    router.push(pathname);
   };
-
-  useEffect(() => {
-    dispatch(filterJobs());
-  }, [filters, dispatch]);
 
   const filterContent = (
     <Box sx={{ p: 3 }}>
@@ -56,23 +59,6 @@ const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({ open, onClose }) =>
         )}
       </Box>
 
-      {/* Search */}
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
-          Job Title Search
-        </Typography>
-        <TextField
-          fullWidth
-          size="small"
-          placeholder="Search jobs..."
-          value={filters.search}
-          onChange={(e) => handleFilterChange('search', e.target.value)}
-          sx={{ mb: 1 }}
-        />
-      </Box>
-
-      <Divider sx={{ mb: 3 }} />
-
       {/* Location */}
       <Box sx={{ mb: 3 }}>
         <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
@@ -81,7 +67,7 @@ const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({ open, onClose }) =>
         <FormControl fullWidth size="small">
           <InputLabel>Select Location</InputLabel>
           <Select
-            value={filters.location}
+            value={searchParams.get('location') || ''}
             label="Select Location"
             onChange={(e) => handleFilterChange('location', e.target.value)}
           >
@@ -100,34 +86,38 @@ const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({ open, onClose }) =>
         <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
           Category
         </Typography>
-        {categories.map((category) => (
-          <Box
-            key={category.name}
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              p: 1,
-              cursor: 'pointer',
-              borderRadius: 1,
-              '&:hover': {
-                backgroundColor: theme.palette.action.hover,
-              },
-              backgroundColor: filters.category === category.name ? theme.palette.primary.light : 'transparent',
-            }}
-            onClick={() => handleFilterChange('category', filters.category === category.name ? '' : category.name)}
-          >
-            <Typography variant="body2">{category.name}</Typography>
-            <Chip
-              label={category.count}
-              size="small"
+        {categories.map((category) => {
+          const currentCategory = searchParams.get('category');
+          const isSelected = currentCategory === category.name;
+          return (
+            <Box
+              key={category.name}
               sx={{
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                p: 1,
+                cursor: 'pointer',
+                borderRadius: 1,
+                '&:hover': {
+                  backgroundColor: theme.palette.action.hover,
+                },
+                backgroundColor: isSelected ? theme.palette.primary.light : 'transparent',
               }}
-            />
-          </Box>
-        ))}
+              onClick={() => handleFilterChange('category', isSelected ? '' : category.name)}
+            >
+              <Typography variant="body2">{category.name}</Typography>
+              <Chip
+                label={category.count}
+                size="small"
+                sx={{
+                  backgroundColor: theme.palette.primary.main,
+                  color: theme.palette.primary.contrastText,
+                }}
+              />
+            </Box>
+          );
+        })}
       </Box>
 
       <Divider sx={{ mb: 3 }} />
@@ -140,7 +130,7 @@ const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({ open, onClose }) =>
         <FormControl fullWidth size="small">
           <InputLabel>Select Job Type</InputLabel>
           <Select
-            value={filters.jobType}
+            value={searchParams.get('jobType') || ''}
             label="Select Job Type"
             onChange={(e) => handleFilterChange('jobType', e.target.value)}
           >
@@ -162,7 +152,7 @@ const JobFilterSidebar: React.FC<JobFilterSidebarProps> = ({ open, onClose }) =>
         <FormControl fullWidth size="small">
           <InputLabel>Select Experience</InputLabel>
           <Select
-            value={filters.experienceLevel}
+            value={searchParams.get('experienceLevel') || ''}
             label="Select Experience"
             onChange={(e) => handleFilterChange('experienceLevel', e.target.value)}
           >
