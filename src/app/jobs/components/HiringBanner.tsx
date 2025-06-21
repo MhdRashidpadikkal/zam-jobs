@@ -68,7 +68,7 @@ const HiringBanner: React.FC = () => {
               Join our growing team and be part of something amazing. 
               Find your next career opportunity with us.
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-start' }}>
               <Button
                 variant="contained"
                 size="large"
@@ -77,6 +77,7 @@ const HiringBanner: React.FC = () => {
                   backgroundColor: 'white',
                   color: theme.palette.secondary.main,
                   fontWeight: 600,
+                  width: '200px',
                   '&:hover': {
                     backgroundColor: theme.palette.grey[100],
                   },
@@ -91,6 +92,7 @@ const HiringBanner: React.FC = () => {
                   borderColor: 'white',
                   color: 'white',
                   fontWeight: 600,
+                  width: '200px',
                   '&:hover': {
                     borderColor: 'white',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',

@@ -16,8 +16,9 @@ import { ArrowBack, Home, Work } from '@mui/icons-material';
 import { useRouter, useParams } from 'next/navigation';
 import { useAppSelector } from '../../../store/slices/hooks';
 import { Job } from '../../../types/job';
-import JobDetailsContent from '../../../components/JobDetailsContent';
-import RelatedJobs from '../../../components/RelatedJobs';
+import JobDetailsContent from '../components/JobDetailsContent';
+import JobOverviewSidebar from '../components/JobOverviewSidebar';
+import RelatedJobs from '../components/RelatedJobs';
 
 const JobDetailsPage: React.FC = () => {
   const theme = useTheme();
@@ -53,7 +54,7 @@ const JobDetailsPage: React.FC = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: theme.palette.grey[50] }}>
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box sx={{ px: { xs: 2, sm: 3, md: 4 }, py: 4 }}>
         {/* Breadcrumbs */}
         <Box sx={{ mb: 4 }}>
           <Breadcrumbs aria-label="breadcrumb">
@@ -114,7 +115,7 @@ const JobDetailsPage: React.FC = () => {
             <JobOverviewSidebar job={job} />
           </Grid> */}
         </Grid>
-      </Container>
+      </Box>
     </Box>
   );
 };

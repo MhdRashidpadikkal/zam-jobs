@@ -10,20 +10,27 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
 } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '../store/slices/hooks';
-import { setCurrentPage } from '../store/slices/jobSlice';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
-const PaginationControl: React.FC = () => {
+interface PaginationControlProps {
+  totalPages: number;
+}
+
+const PaginationControl: React.FC<PaginationControlProps> = ({ totalPages }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const dispatch = useAppDispatch();
-  const { pagination } = useAppSelector((state) => state.jobs);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    dispatch(setCurrentPage(page));
+    const params = new URLSearchParams(searchParams);
+    params.set('page', page.toString());
+    router.push(pathname + '?' + params.toString());
   };
 
-  if (pagination.totalPages <= 1) {
+  if (totalPages <= 1) {
     return null;
   }
 
@@ -38,8 +45,8 @@ const PaginationControl: React.FC = () => {
       }}
     >
       <Pagination
-        count={pagination.totalPages}
-        page={pagination.currentPage}
+        count={totalPages}
+        page={currentPage}
         onChange={handlePageChange}
         size={isMobile ? 'small' : 'medium'}
         showFirstButton
