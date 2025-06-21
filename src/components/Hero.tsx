@@ -1,6 +1,7 @@
 "use client";
 
-import { Box, Typography, Button, useTheme, Container, alpha, styled } from "@mui/material";
+import { Box, Typography, Button, useTheme, Container, alpha } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import {
   Search as SearchIcon,
   LocationOn as LocationOnIcon,
@@ -33,7 +34,7 @@ const FloatingCard = styled(Box)(({ theme }) => ({
   backdropFilter: 'blur(8px)',
   borderRadius: 16,
   border: `1px solid ${alpha('#ffffff', 0.5)}`,
-  padding: theme.spacing(3),
+  padding: theme.breakpoints.down('md') ? theme.spacing(1) : theme.spacing(3),
   boxShadow: `
     0 25px 50px -12px ${alpha('#000000', 0.25)},
     0 0 0 1px ${alpha('#ffffff', 0.05)}
@@ -51,27 +52,37 @@ const FloatingCard = styled(Box)(({ theme }) => ({
 }));
 
 const IconContainer = styled(Box)(({ theme }) => ({
-  width: 48,
-  height: 48,
+  width: 32,
+  height: 32,
+
+  [theme.breakpoints.up('md')]: {
+    width: 48,
+    height: 48,
+  },
+
   borderRadius: 12,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   boxShadow: `0 8px 16px ${alpha('#000000', 0.15)}`,
   transition: 'all 0.3s ease',
+
   '&.emerald': {
     background: 'linear-gradient(135deg, #10b981, #059669)',
     '&:hover': {
       boxShadow: `0 8px 25px ${alpha('#10b981', 0.25)}`,
     },
   },
+
   '&.purple': {
-    background: `linear-gradient(135deg,rgb(27, 100, 184), ${theme.palette.primary.dark})`,
+    background: `linear-gradient(135deg, rgb(27, 100, 184), ${theme.palette.primary.dark})`,
     '&:hover': {
       boxShadow: `0 8px 25px ${alpha('rgb(27, 100, 184)', 0.25)}`,
     },
   },
 }));
+
+
 
 const ButtonWithRotate = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme();
@@ -192,19 +203,19 @@ export default function Hero() {
               variant="h2"
               component="h2"
               sx={{
-                fontSize: { xs: 35, md: 64 },
+                fontSize: { xs: 30, md: 56 },
                 fontWeight: 500,
                 color: "primary.main",
                 textAlign: "center",
                 lineHeight: 1.4,
-                px: 10
+                px: { xs: 0, md: 10 }
               }}
             >
-              How our platform makes your job search{" "}
+              Finding a Job Shouldn’t Be Hard We Make It{" "}
               <Box
                 component="span"
                 sx={{
-                  fontSize: { xs: 35, md: 64 },
+                  fontSize: { xs: 32, md: 58 },
                   fontWeight: 500,
                   textAlign: "center",
                   backgroundImage: `linear-gradient(180deg, rgba(0, 45, 98, 1), rgba(59, 130, 246, 1))`,
@@ -213,7 +224,7 @@ export default function Hero() {
                   borderRadius: 2,
                 }}
               >
-                Easier
+                Easy
               </Box>
             </Typography>
 
@@ -224,8 +235,7 @@ export default function Hero() {
                 alignItems: "center",
                 justifyContent: "space-between",
                 textAlign: "center",
-                gap: 4,
-                minHeight: "60vh",
+                minHeight: { xs: "43vh", md: "60vh" },
                 px: 2,
               }}
             >
@@ -238,7 +248,7 @@ export default function Hero() {
                   variant="h6"
                   sx={{
                     fontSize: { xs: "13px", md: "20px" },
-                    mb: 3,
+                    mb: { xs: 0, md: 3 },
                     mt: 2,
                     color: theme.palette.primary.contrastText,
                     maxWidth: "600px",
@@ -254,8 +264,7 @@ export default function Hero() {
                   display: "flex",
                   gap: 2,
                   justifyContent: "center",
-                  flexWrap: "wrap",
-                  mb: 5,
+                  mb: { xs: 0, md: 5 },
                 }}
               >
                 <motion.div
@@ -270,9 +279,9 @@ export default function Hero() {
                       textTransform: "none",
                       borderRadius: 2,
                       background: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
-                      minWidth: 160,
-                      height: 50,
-                      fontSize: "1rem",
+                      minWidth: { xs: 120, md: 160 },
+                      height: { xs: 40, md: 50 },
+                      fontSize: { xs: "12px", md: "1rem" },
                       "&:hover": {
                         transform: "translateY(-2px)",
                       },
@@ -312,16 +321,16 @@ export default function Hero() {
                 <MotionBox
               sx={{
                 position: 'absolute',
-                left: -258,
-                top: '50%',
+                left: { xs: -114, md: -238 },
+                top: { xs: 120, md: '70%' },
                 transform: 'translateY(-20%)',
-                width: 288,
-                height: 144,
+                width: { xs: 150, md: 288 },
+                height: { xs: 10, md: 144 },
               }}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5 }}
             >
-              <GradientBackdrop className="emerald" />
+              <GradientBackdrop className="emerald" />  
               <FloatingCard>
                 {/* Gradient overlay */}
                 <Box
@@ -333,13 +342,13 @@ export default function Hero() {
                   }}
                 />
                 
-                <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: { xs: 1, md: 2 } }}>
                   <IconContainer className="emerald">
-                    <LocationOnIcon sx={{ color: 'white', fontSize: 24 }} />
+                    <LocationOnIcon sx={{ color: 'white', fontSize: { xs: 20, md: 24 } }} />
                   </IconContainer>
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="h6" fontWeight="bold" sx={{ mb: 1 }}>
-                      Find Jobs Nearby
+                  <Box>
+                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: 12, md: 20 } }}>
+                      Find Jobs <Box sx={{ display: { xs: 'none', md: 'inline' } }}>Nearby</Box>
                     </Typography>
                     {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       Verified local opportunities tailored for you.
@@ -349,7 +358,7 @@ export default function Hero() {
                         display: 'flex',
                         alignItems: 'center',
                         color: '#059669',
-                        fontSize: '0.875rem',
+                        fontSize: { xs: '11px', md: '0.875rem' },
                         fontWeight: 500,
                         cursor: 'pointer',
                         '&:hover .arrow': {
@@ -362,7 +371,7 @@ export default function Hero() {
                         className="arrow"
                         sx={{
                           fontSize: 16,
-                          ml: 0.5,
+                          ml: { xs: 0.2, md: 0.5 },
                           transition: 'transform 0.2s',
                         }}
                       />
@@ -376,8 +385,8 @@ export default function Hero() {
                     position: 'absolute',
                     bottom: -8,
                     right: -8,
-                    width: 32,
-                    height: 32,
+                    width: { xs: 24, md: 32 },
+                    height: { xs: 24, md: 32 },
                     background: 'linear-gradient(135deg, #10b981, #059669)',
                     borderRadius: '50%',
                     opacity: 0.2,
@@ -388,8 +397,8 @@ export default function Hero() {
                     position: 'absolute',
                     top: 8,
                     right: 8,
-                    width: 8,
-                    height: 8,
+                    width: { xs: 16, md: 24 },
+                    height: { xs: 16, md: 24 },
                     bgcolor: '#34d399',
                     borderRadius: '50%',
                     opacity: 0.4,
@@ -402,10 +411,10 @@ export default function Hero() {
             <MotionBox
               sx={{
                 position: 'absolute',
-                right: -228,
-                top: 32,
-                width: 288,
-                height: 144,
+                right: { xs: -100, md: -228 },
+                top: { xs: 22, md: 32 },
+                width: { xs: 150, md: 288 },
+                height: { xs: 10, md: 144 },
               }}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5 }}
@@ -422,12 +431,12 @@ export default function Hero() {
                   }}
                 />
                 
-                <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: 4 }}>
+                <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: { xs: 1, md: 4 } }}>
                   <IconContainer className="purple">
-                    <SearchIcon sx={{ color: 'white', fontSize: 24 }} />
+                    <SearchIcon sx={{ color: 'white', fontSize: theme => ({ xs: 16, md: 24 }) }} />
                   </IconContainer>
-                  <Box sx={{  }}>
-                    <Typography variant="h6" fontWeight="bold" sx={{ }}>
+                  <Box>
+                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '14px', md: '1.25rem' } }}>
                       Hire Faster
                     </Typography>
                     {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -438,7 +447,7 @@ export default function Hero() {
                         display: 'flex',
                         alignItems: 'center',
                         color: '#002D62',
-                        fontSize: '0.875rem',
+                        fontSize: { xs: '10px', md: '0.875rem' },
                         fontWeight: 500,
                         cursor: 'pointer',
                         '&:hover .arrow': {
@@ -450,8 +459,8 @@ export default function Hero() {
                       <ArrowForwardIcon
                         className="arrow"
                         sx={{
-                          fontSize: 16,
-                          ml: 0.5,
+                          fontSize: { xs: 12, md: 16 },
+                          ml: { xs: 0, md: 0.5 },
                           transition: 'transform 0.2s',
                         }}
                       />
@@ -465,8 +474,8 @@ export default function Hero() {
                     position: 'absolute',
                     bottom: -8,
                     right: -8,
-                    width: 32,
-                    height: 32,
+                    width: { xs: 24, md: 32 },
+                    height: { xs: 24, md: 32 },
                     background: 'linear-gradient(135deg,rgba(0, 45, 98, 1), rgba(59, 130, 246, 1))',
                     borderRadius: '50%',
                     opacity: 0.2,
@@ -477,8 +486,8 @@ export default function Hero() {
                     position: 'absolute',
                     top: 8,
                     right: 8,
-                    width: 8,
-                    height: 8,
+                    width: { xs: 16, md: 8 },
+                    height: { xs: 16, md: 8 },
                     bgcolor: 'rgba(0, 45, 98, 1)',
                     borderRadius: '50%',
                     opacity: 0.4,
