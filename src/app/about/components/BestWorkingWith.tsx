@@ -3,11 +3,11 @@ import { Box, Grid, Typography, Container } from "@mui/material";
 
 const BestWorkingWith = () => {
   return (
-    <Box sx={{ py: 10, backgroundColor: "#f9fafb" }}>
+    <Box sx={{ py: 10,mt:10, backgroundColor: "#f9fafb" }}>
       <Container>
         <Grid container spacing={6} alignItems="center" justifyContent="center">
           {/* Text Section */}
-          {/* <Grid item xs={12} md={6}> */}
+           
           <Grid size={{xs:12,md:6}}>
             <Typography variant="h4" fontWeight="bold" gutterBottom>
               We Help People Build Meaningful Careers
@@ -26,7 +26,7 @@ const BestWorkingWith = () => {
           </Grid>
 
           {/* Image Section */}
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid size={{xs:12,md:6,lg:6}} >
             <Box
               component="img"
               src="/images/career.jpg"
