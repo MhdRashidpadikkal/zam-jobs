@@ -5,7 +5,6 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
   Button,
   useTheme,
   useMediaQuery,
@@ -67,48 +66,43 @@ const JobListingsPage: React.FC = () => {
           <Box sx={{ flex: 1 }}>
             {/* Header with filters and sort */}
             <Paper sx={{ p: isMobile ? 2 : 3, mb: 3 }}>
-              <Box sx={{ 
-                display: 'flex', 
-                flexDirection: isMobile ? 'column' : 'row',
-                justifyContent: 'space-between', 
-                alignItems: isMobile ? 'stretch' : 'center',
-                flexWrap: 'wrap',
-                gap: isMobile ? 2 : 2
-              }}>
-                <Box sx={{ 
-                  display: 'flex', 
-                  flexDirection: isMobile ? 'column' : 'row',
-                  alignItems: isMobile ? 'flex-start' : 'center', 
-                  gap: isMobile ? 1 : 2 
-                }}>
-                  <Typography variant="h6" sx={{ 
-                    fontWeight: 600,
-                    fontSize: isMobile ? '1.1rem' : '1.25rem'
-                  }}>
-                    {filteredJobs.length} Jobs Found
-                  </Typography>
-                  {isMobile && (
+              {isMobile ? (
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1.1rem' }}>
+                      {filteredJobs.length} Jobs Found
+                    </Typography>
                     <Button
                       variant="outlined"
                       startIcon={<FilterList />}
                       onClick={() => setFilterSidebarOpen(true)}
                       size="small"
-                      sx={{ alignSelf: 'flex-start' }}
                     >
                       Filters
                     </Button>
-                  )}
+                  </Box>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <SortDropdown />
+                    <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
+                  </Box>
                 </Box>
+              ) : (
                 <Box sx={{ 
                   display: 'flex', 
-                  flexDirection: isMobile ? 'column' : 'row',
-                  alignItems: isMobile ? 'stretch' : 'center', 
-                  gap: isMobile ? 1 : 2 
+                  justifyContent: 'space-between', 
+                  alignItems: 'center',
                 }}>
-                  <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
-                  <SortDropdown />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Typography variant="h6" sx={{ fontWeight: 600, fontSize: '1.25rem' }}>
+                      {filteredJobs.length} Jobs Found
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <ViewToggle viewMode={viewMode} onViewChange={handleViewChange} />
+                    <SortDropdown />
+                  </Box>
                 </Box>
-              </Box>
+              )}
             </Paper>
 
             {/* Job Cards/List */}
@@ -123,7 +117,7 @@ const JobListingsPage: React.FC = () => {
                   },
                   gap: 2
                 }}>
-                  {currentJobs.map((job) => (
+                  {currentJobs.map((job: Job) => (
                     <Box key={job.id}>
                       <JobCard job={job} onViewDetails={handleViewDetails} viewMode="card" />
                     </Box>
@@ -131,7 +125,7 @@ const JobListingsPage: React.FC = () => {
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-                  {currentJobs.map((job) => (
+                  {currentJobs.map((job: Job) => (
                     <JobCard key={job.id} job={job} onViewDetails={handleViewDetails} viewMode="list" />
                   ))}
                 </Box>
