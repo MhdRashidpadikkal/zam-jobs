@@ -1,6 +1,8 @@
-import { Container, Typography } from '@mui/material';
 import Hero from '@/components/Hero';
 import type { Metadata } from "next";
+import HomeClientWrapper from '@/app/HomeClientWrapper';
+import BrandMarquee from '@/components/home/BrandMarquee';
+import WhyChooseUs from '@/components/home/WhyChooseUs';
 // import AboutPage from './about/page';
 
 export const metadata: Metadata = {
@@ -9,14 +11,12 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  
   return (
-    <Container maxWidth="lg"  sx={
-      {
-        bgcolor: 'red'
-      }
-    } >
+    <HomeClientWrapper>
       <Hero />
-      {/* <AboutPage/> */}
-    </Container>
+      <BrandMarquee />
+      <WhyChooseUs />
+    </HomeClientWrapper>
   );
 }

@@ -8,11 +8,13 @@ import BestWorkingWith from "@/app/about/components/BestWorkingWith";
 import TopFirms from "@/app/about/components/TopFirms";
 import AboutFirst from "@/app/about/components/AboutFirst";
 import WorkingProcess from "./components/WorkingProcess";
+import AboutHero from "./components/AboutHero";
  
  
 export default function AboutPage() {
   return (
     <Container maxWidth="lg" sx={{ py: 3 }}>
+      <AboutHero />
       <AboutFirst />
       <WorkingProcess />
      <AccordionMessage />

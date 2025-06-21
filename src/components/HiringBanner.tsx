@@ -8,12 +8,14 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { Work, TrendingUp } from '@mui/icons-material';
+import Header from './Header';
 
 const HiringBanner: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
+
     <Box
       sx={{
         background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.dark} 100%)`,
@@ -34,6 +36,9 @@ const HiringBanner: React.FC = () => {
         },
       }}
     >
+      <Box sx={{position: "relative", top:'-30px',zIndex: 20 }}>
+          <Header/>
+      </Box>
       <Container maxWidth="lg">
         <Box sx={{ 
           display: 'flex', 
