@@ -1,25 +1,22 @@
-"use client";
-
-import { Box, Typography } from '@mui/material';
 import Hero from '@/components/Hero';
+import type { Metadata } from "next";
+import HomeClientWrapper from '@/app/HomeClientWrapper';
+import BrandMarquee from '@/components/home/BrandMarquee';
+import WhyChooseUs from '@/components/home/WhyChooseUs';
+// import AboutPage from './about/page';
+
+export const metadata: Metadata = {
+  title: "Zam Job",
+  description: "Job portal and management system",
+};
 
 export default function Home() {
+  
   return (
-    <Box sx={{ py: 8 }}>
-      <Typography
-        variant="h2" 
-        component="h2" 
-        sx={{
-          fontSize: { xs: 32, sm: 48, md: 64 },
-          fontWeight: 500,
-          color: "primary.main",
-          textAlign: "center",
-          px: 2,
-        }}
-      >
-        How our platform makes your job search easier
-      </Typography>
+    <HomeClientWrapper>
       <Hero />
-    </Box>
+      <BrandMarquee />
+      <WhyChooseUs />
+    </HomeClientWrapper>
   );
 }

@@ -54,12 +54,13 @@ const sortJobs = (jobs: Job[], sortBy: string): Job[] => {
 export default async function JobListingsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const allJobs = mockJobs;
+  const resolvedSearchParams = await searchParams;
 
-  const filteredJobs = applyFilters(allJobs, searchParams);
-  const sortedJobs = sortJobs(filteredJobs, searchParams.sortBy as string);
+  const filteredJobs = applyFilters(allJobs, resolvedSearchParams);
+  const sortedJobs = sortJobs(filteredJobs, resolvedSearchParams.sortBy as string);
 
   return <JobListingsClient jobs={sortedJobs} />;
 }

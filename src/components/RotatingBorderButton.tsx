@@ -43,13 +43,13 @@ const RotatingBorderButton = () => {
           sx={{
             textTransform: "none",
             borderRadius: 2,
-            minWidth: 160,
-            height: 50,
-            fontSize: "1rem",
+            minWidth: { xs: 120, md: 160 },
+            height: { xs: 38, md: 48 },
+            fontSize: { xs: "12px", md: "1rem" },
             backgroundColor: "white",
             color: "black",
             fontWeight: 600,
-            paddingX: 2,
+            paddingX: { xs: 2, md: 4 },
             "&:hover": {
               backgroundColor: "#f0f0f0",
               transform: "translateY(-2px)",

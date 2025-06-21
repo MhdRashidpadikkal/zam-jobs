@@ -23,7 +23,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       <CacheProvider value={clientSideEmotionCache}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {pathname !== '/' && <Header /> }
+          {pathname !== '/' && pathname !== '/jobs'  && <Header /> }
           {children}
         </ThemeProvider>
       </CacheProvider>
