@@ -15,7 +15,7 @@ import {
 import React, { useState } from "react";
 
 const AccordionMessage = () => {
-  const [expandedId, setExpandedId] = useState(1); // Default open accordion ID
+  const [expandedId, setExpandedId] = useState<number | null>(1); // Default open accordion ID
 
   const faqs = [
     {

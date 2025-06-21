@@ -1,6 +1,7 @@
-import { Box } from '@mui/material';
 import Hero from '@/components/Hero';
 import type { Metadata } from "next";
+import HomeClientWrapper from '@/app/HomeClientWrapper';
+// import AboutPage from './about/page';
 
 export const metadata: Metadata = {
   title: "Zam Job",
@@ -8,9 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  
   return (
-    <Box>
+    <HomeClientWrapper>
       <Hero />
-    </Box>
+    </HomeClientWrapper>
   );
 }
