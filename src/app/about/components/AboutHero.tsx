@@ -15,17 +15,12 @@ import {
   alpha,
   styled,
   keyframes,
-  useTheme,
 } from '@mui/material';
 import {
-  Timeline,
-  Business,
   People,
   Visibility,
   EmojiObjects,
   ArrowForward,
-  Star,
-  TrendingUp,
   Security,
   HandshakeOutlined,
 } from '@mui/icons-material';
@@ -50,7 +45,7 @@ const float = keyframes`
 `;
 
 // Styled components
-const BackgroundBox = styled(Box)(({ theme }) => ({
+const BackgroundBox = styled(Box)(() => ({
   position: 'absolute',
   inset: 0,
   opacity: 0.4,
@@ -80,7 +75,7 @@ const BackgroundBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const FloatingElement = styled(Box)(({ theme }) => ({
+const FloatingElement = styled(Box)(() => ({
   position: 'absolute',
   bottom: '15%',
   left: '5%',
@@ -92,14 +87,14 @@ const FloatingElement = styled(Box)(({ theme }) => ({
   animation: `${float} 6s ease-in-out infinite`,
 }));
 
-const GradientText = styled(Typography)(({ theme }) => ({
+const GradientText = styled(Typography)(() => ({
   background: 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   backgroundClip: 'text',
 }));
 
-const HeroCard = styled(Card)(({ theme }) => ({
+const HeroCard = styled(Card)(() => ({
   background: 'rgba(255, 255, 255, 0.9)',
   backdropFilter: 'blur(20px)',
   borderRadius: '20px',
@@ -146,7 +141,6 @@ const ValueCard = styled(Card)(({ theme, gradient }) => ({
 
 const AboutHero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const theme = useTheme();
 
   useEffect(() => {
     setIsVisible(true);
@@ -318,7 +312,7 @@ const AboutHero = () => {
                       flexGrow: 1,
                     }}
                   >
-                    To be the world's most trusted platform where every individual finds their 
+                    To be the world&apos;s most trusted platform where every individual finds their 
                     perfect career match and every organization discovers exceptional talent that 
                     drives their success forward.
                   </Typography>
