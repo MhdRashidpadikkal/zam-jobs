@@ -10,10 +10,8 @@ import {
   Grid,
   Chip,
   Button,
-  Paper,
   Fade,
   Slide,
-  useTheme,
   alpha,
   styled,
   keyframes,
@@ -30,10 +28,8 @@ import {
   Phone,
   Email,
   Language,
-  Work,
   Business,
 } from '@mui/icons-material';
-import { motion } from 'framer-motion';
 
 // Styled components for custom animations
 const pulse = keyframes`
@@ -81,14 +77,14 @@ const BackgroundBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const GradientText = styled(Typography)(({ theme }) => ({
+const GradientText = styled(Typography)(() => ({
   background: 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)',
   WebkitBackgroundClip: 'text',
   WebkitTextFillColor: 'transparent',
   backgroundClip: 'text',
 }));
 
-const FeatureCard = styled(Card)(({ theme, color }) => ({
+const FeatureCard = styled(Card)<{ color: string }>(({ color }) => ({
   position: 'relative',
   background: 'rgba(255, 255, 255, 0.9)',
   backdropFilter: 'blur(16px)',
@@ -126,7 +122,7 @@ const FeatureCard = styled(Card)(({ theme, color }) => ({
   },
 }));
 
-const IconContainer = styled(Box)(({ theme, bgcolor }) => ({
+const IconContainer = styled(Box)<{ bgcolor: string }>(({ theme, bgcolor }) => ({
   width: '64px',
   height: '64px',
   borderRadius: '16px',
@@ -194,7 +190,6 @@ const CTACard = styled(Card)(({ theme }) => ({
 
 const WhyChooseUs = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const theme = useTheme();
 
   useEffect(() => {
     setIsVisible(true);
@@ -319,7 +314,7 @@ const WhyChooseUs = () => {
                 fontSize: '1.25rem',
               }}
             >
-              Whether you're searching for the perfect job opportunity or looking to hire exceptional talent, 
+              Whether you&apos;re searching for the perfect job opportunity or looking to hire exceptional talent, 
               ZAAM JOB MEDIATE connects dreams with opportunities through our trusted, fast, and simple approach.
             </Typography>
           </Box>
