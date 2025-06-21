@@ -16,9 +16,9 @@ export default function Home() {
   return (
     <HomeClientWrapper>
       <Hero />
-      <ReviewCard/>
       <BrandMarquee />
       <WhyChooseUs />
+      <ReviewCard/>
     </HomeClientWrapper>
   );
 }
