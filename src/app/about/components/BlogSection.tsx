@@ -20,29 +20,64 @@ const BlogSection = () => {
   const blogs = [
   {
     title: 'Revitalizing Workplace Morale: Innovative Tactics For Boosting Employee Engagement In 2024',
-    date: '30 March 2024',
+    date: '30 March 2025',
     tag: 'News',
     image: '/images/environ.jpg',
   },
   {
     title: 'How To Avoid The Top Six Most Common Job Interview Mistakes',
-    date: '30 March 2024',
+    date: '30 March 2025',
     tag: 'Blog',
     image: '/images/inter.jpg',
   },
 ];
   return (
     <Box sx={{ py: 10, px: 2, textAlign: 'center' }}>
-      <Typography variant="h4" fontWeight="bold" gutterBottom>
-        News and Blog
-      </Typography>
-      <Typography variant="body2" color="text.secondary" mb={6}>
-        Metus faucibus sed turpis lectus feugiat tincidunt. Rhoncus sed tristique in dolor
-      </Typography>
+      
+        <Typography
+                    variant="h2"
+                    component="h1"
+                    sx={{
+                      fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
+                      fontWeight: 700,
+                      color: '#1a202c',
+                      mb: 3,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    News And{' '}
+                    <Box
+                      component="span"
+                      sx={{
+                        background: 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                      }}
+                     
+                    >
+                      Blog
+                    </Box>
+                  </Typography>
+       
+       <Typography
+                          variant="h6"
+                          sx={{
+                            color: '#64748b',
+                            maxWidth: '48rem',
+                            mx: 'auto',
+                            lineHeight: 1.6,
+                            fontSize: '1.25rem',
+                            mb:3,
+                          }}
+                        >
+                             Metus faucibus sed turpis lectus feugiat tincidunt. Rhoncus sed tristique 
+                          
+                        </Typography>
 
       <Grid container spacing={4} justifyContent="center">
         {blogs.map((blog, index) => (
-          // <Grid item key={index} xs={12} sm={6} md={5.5}>
+          
          <Grid key={index} size ={{xs:12,sm:6,md:5.5}}>
            
             <Card

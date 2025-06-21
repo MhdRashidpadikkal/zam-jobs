@@ -16,7 +16,7 @@ export default function AboutPage() {
       <AboutFirst />
       <WorkingProcess />
      <AccordionMessage />
-     <TopFirms />
+      <TopFirms /> 
       <BestWorkingWith />
      <BlogSection />
      </Container>
