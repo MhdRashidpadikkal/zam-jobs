@@ -1,11 +1,10 @@
 "use client";
 
-import { Box, Typography, Button, useTheme, Container, alpha } from "@mui/material";
+import { Box, Typography, Button, alpha, useTheme } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
   Search as SearchIcon,
   LocationOn as LocationOnIcon,
-  Work as WorkIcon,
   ArrowForward as ArrowForwardIcon
 } from '@mui/icons-material';import { motion } from "framer-motion";
 import Header from "./Header";
@@ -14,7 +13,7 @@ import RotatingBorderButton from "./RotatingBorderButton";
 
 const MotionBox = motion(Box);
 
-const GradientBackdrop = styled(Box)(({ theme }) => ({
+const GradientBackdrop = styled(Box)(() => ({
   position: 'absolute',
   inset: 0,
   borderRadius: 16,
@@ -77,52 +76,16 @@ const IconContainer = styled(Box)(({ theme }) => ({
   '&.purple': {
     background: `linear-gradient(135deg, rgb(27, 100, 184), ${theme.palette.primary.dark})`,
     '&:hover': {
-      boxShadow: `0 8px 25px ${alpha('rgb(27, 100, 184)', 0.25)}`,
+      boxShadow: `0 8px 25px ${alpha(theme.palette.primary.main, 0.25)}`,
     },
   },
 }));
-
-
-
-const ButtonWithRotate = ({ children }: { children: React.ReactNode }) => {
-  const theme = useTheme();
-  return (
-    <motion.div
-      whileHover={{
-        scale: 1.05,
-        transition: { duration: 0.2 },
-      }}
-      whileTap={{
-        scale: 0.95,
-        transition: { duration: 0.1 },
-      }}
-    >
-      <Button
-        variant="outlined"
-        sx={{
-          textTransform: "none",
-          borderRadius: 2,
-          borderColor: theme.palette.primary.main,
-          color: theme.palette.primary.main,
-          minWidth: 160,
-          height: 50,
-          "&:hover": {
-            borderColor: theme.palette.primary.dark,
-            color: theme.palette.primary.dark,
-          },
-        }}
-      >
-        {children}
-      </Button>
-    </motion.div>
-  );
-};
 
 export default function Hero() {
   const theme = useTheme();
 
   return (
-    <Box sx={(theme) => ({
+    <Box sx={{
       border: `1px solid ${theme.palette.secondary.contrastText}`,
       margin: { xs: 1, md: 2 },
       display: "flex",
@@ -134,14 +97,14 @@ export default function Hero() {
        
         rgba(255, 255, 255, 0.8) 40%,
         rgba(0, 45, 98, 1) 100%)
-    `,
+      `,
       backgroundSize: "cover",
       backgroundPosition: "center",
       boxShadow: "0 0 40px rgba(199, 198, 198, 0.5)",
       position: "relative",
       overflow: "hidden",
-
-    })}>
+    }}
+>
       <Box sx={{
         width: "100%",
         height: "100%",
@@ -150,7 +113,7 @@ export default function Hero() {
         backgroundRepeat: "repeat",
       }}>
         <Box
-          sx={(theme) => ({
+          sx={{
 
             backgroundImage: `
       radial-gradient(circle at top,
@@ -164,7 +127,7 @@ export default function Hero() {
             position: "relative",
             overflow: "hidden",
             zIndex: 10
-          })}
+          }}
         >
 
           {/* Content */}
@@ -246,13 +209,13 @@ export default function Hero() {
               >
                 <Typography
                   variant="h6"
-                  sx={{
+                  sx={(theme) => ({
                     fontSize: { xs: "13px", md: "20px" },
                     mb: { xs: 0, md: 3 },
                     mt: 2,
                     color: theme.palette.primary.contrastText,
                     maxWidth: "600px",
-                  }}
+                  })}
                 >
                   Discover exciting opportunities in your field. Connect with top
                   employers and start your journey to success.
@@ -433,7 +396,7 @@ export default function Hero() {
                 
                 <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: { xs: 1, md: 4 } }}>
                   <IconContainer className="purple">
-                    <SearchIcon sx={{ color: 'white', fontSize: theme => ({ xs: 16, md: 24 }) }} />
+                    <SearchIcon sx={{ color: 'white', fontSize: { xs: 16, md: 24 } }} />
                   </IconContainer>
                   <Box>
                     <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '14px', md: '1.25rem' } }}>
