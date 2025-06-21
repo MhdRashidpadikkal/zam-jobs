@@ -9,7 +9,8 @@ import {
   Grid,
   useTheme,
   useMediaQuery,
-  Paper
+  Paper,
+  Divider
 } from '@mui/material';
 import {
   Business,
@@ -56,15 +57,15 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
         <Box sx={{ 
           flex: 1, 
           display: 'flex', 
-          flexDirection: isMobile ? 'column' : 'row',
-          alignItems: isMobile ? 'stretch' : 'center', 
+          flexDirection: 'row',
+          alignItems: 'center', 
           gap: isMobile ? 2 : 3 
         }}>
           {/* Company Logo Placeholder */}
           <Box
             sx={{
-              width: isMobile ? '100%' : 60,
-              height: isMobile ? 50 : 60,
+              width: 60,
+              height: 60,
               borderRadius: 2,
               background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
               display: 'flex',
@@ -72,8 +73,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
               justifyContent: 'center',
               color: 'white',
               fontWeight: 600,
-              fontSize: isMobile ? '1rem' : '1.2rem',
-              alignSelf: isMobile ? 'flex-start' : 'center',
+              fontSize: '1.2rem',
+              flexShrink: 0,
             }}
           >
             {job.company.charAt(0).toUpperCase()}
@@ -245,138 +246,100 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
         flexDirection: 'column',
         height: '100%'
       }}>
-        {/* Header Section - Fixed Height */}
-        <Box sx={{ height: '120px', mb: 2 }}>
-          <Typography
-            variant="h6"
-            component="h3"
+        {/* Restructured Header */}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          {/* Company Logo Placeholder */}
+          <Box
             sx={{
+              width: 50,
+              height: 50,
+              mr: 2,
+              borderRadius: 2,
+              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
               fontWeight: 600,
-              color: theme.palette.primary.main,
-              mb: 1,
-              fontSize: isMobile ? '1.1rem' : '1.25rem',
-              lineHeight: 1.3,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
+              fontSize: '1.2rem',
+              flexShrink: 0,
             }}
           >
-            {job.title}
-          </Typography>
-          
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-            <Business sx={{ fontSize: 16, mr: 1, color: theme.palette.text.secondary }} />
-            <Typography 
-              variant="body2" 
-              color="text.secondary"
-              sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {job.company}
-            </Typography>
+            {job.company.charAt(0).toUpperCase()}
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-            <LocationOn sx={{ fontSize: 16, mr: 1, color: theme.palette.text.secondary }} />
-            <Typography 
-              variant="body2" 
-              color="text.secondary"
+          {/* Job Title and Company */}
+          <Box>
+            <Typography
+              variant="h6"
               sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
+                fontWeight: 600,
+                color: theme.palette.primary.main,
+                lineHeight: 1.3,
               }}
             >
+              {job.title}
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Business sx={{ fontSize: 16, mr: 0.5, color: theme.palette.text.secondary }} />
+              <Typography variant="body2" color="text.secondary">
+                {job.company}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        {/* Job Info Section */}
+        <Box sx={{ mb: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+            <LocationOn sx={{ fontSize: 18, mr: 1, color: theme.palette.text.secondary }} />
+            <Typography variant="body1" color="text.secondary">
               {job.location}
             </Typography>
           </Box>
-        </Box>
-
-        {/* Job Type Section - Fixed Height */}
-        <Box sx={{ height: '40px', mb: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Work sx={{ fontSize: 16, mr: 1, color: theme.palette.text.secondary }} />
-            <Typography variant="body2" color="text.secondary">
-              {job.jobType}
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Posted Time Section - Fixed Height */}
-        <Box sx={{ height: '40px', mb: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Schedule sx={{ fontSize: 16, mr: 1, color: theme.palette.text.secondary }} />
-            <Typography variant="body2" color="text.secondary">
-              Posted {job.postedTime}
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Experience & Category Section - Fixed Height */}
-        <Box sx={{ height: '60px', mb: 2 }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            Experience: {job.experienceLevel}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Category: {job.category}
-          </Typography>
-        </Box>
-
-        {/* Tags Section - Fixed Height */}
-        <Box sx={{ height: '80px', mb: 2, overflow: 'hidden' }}>
-          {job.tags.slice(0, 3).map((tag, index) => (
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
             <Chip
-              key={index}
-              label={tag}
+              icon={<Work sx={{ fontSize: 16, ml: 1 }} />}
+              label={job.jobType}
               size="small"
               sx={{
-                mr: 1,
-                mb: 1,
-                backgroundColor: theme.palette.primary.light,
-                color: theme.palette.primary.contrastText,
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.main,
-                },
+                backgroundColor: theme.palette.success[100],
+                color: theme.palette.success[700],
+                fontWeight: 500,
               }}
             />
-          ))}
-          {job.tags.length > 3 && (
             <Chip
-              label={`+${job.tags.length - 3} more`}
+              label={job.experienceLevel}
               size="small"
-              variant="outlined"
-              sx={{ mb: 1 }}
+              sx={{
+                backgroundColor: theme.palette.info[100],
+                color: theme.palette.info[700],
+                fontWeight: 500,
+              }}
             />
-          )}
+          </Box>
         </Box>
+        
+        {/* Description Snippet */}
+        <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1, mb: 2, height: '80px', overflow: 'hidden' }}>
+          {job.description}
+        </Typography>
 
-        {/* Button Section - Fixed at Bottom */}
-        <Box sx={{ mt: 'auto', pt: 2 }}>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={() => onViewDetails(job)}
-            sx={{
-              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-              color: 'white',
-              py: 1.5,
-              fontWeight: 600,
-              textTransform: 'none',
-              fontSize: '1rem',
-              '&:hover': {
-                background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
-                transform: 'translateY(-1px)',
-                boxShadow: theme.shadows[4],
-              },
-            }}
-          >
-            View Job Details
-          </Button>
+        {/* Footer */}
+        <Box sx={{ mt: 'auto' }}>
+          <Divider sx={{ my: 2 }} />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="caption" color="text.secondary">
+              Posted {job.postedTime}
+            </Typography>
+            <Button
+              variant="contained"
+              onClick={() => onViewDetails(job)}
+              size="small"
+            >
+              View Details
+            </Button>
+          </Box>
         </Box>
       </CardContent>
     </Card>

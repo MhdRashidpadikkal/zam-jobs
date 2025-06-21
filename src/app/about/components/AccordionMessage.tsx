@@ -15,7 +15,9 @@ import {
 import React, { useState } from "react";
 
 const AccordionMessage = () => {
+ 
   const [expandedId, setExpandedId] = useState<number | null>(1); // Default open accordion ID
+ 
 
   const faqs = [
     {
@@ -48,23 +50,47 @@ const AccordionMessage = () => {
   ];
 
   return (
-    <Box sx={{ mt: 10 }}>
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        textAlign="center"
-        gutterBottom
-      >
-        Frequently Asked Questions
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        textAlign="center"
-        mb={4}
-      >
-        At eu lobortis pretium tristique amet lacus ut senectus aliquet.
-      </Typography>
+    <Box sx={{textAlign:'center', mt: 3 }}>
+      
+       <Typography
+                    variant="h2"
+                    component="h1"
+                    sx={{
+                      fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
+                      fontWeight: 700,
+                      color: '#1a202c',
+                      mb: 3,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                     Frequently Asked{' '}
+                    <Box
+                      component="span"
+                      sx={{
+                        background: 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                      }}
+                    >
+                      Questions
+                    </Box>
+                  </Typography>
+      
+         <Typography
+                    variant="h6"
+                    sx={{
+                      color: '#64748b',
+                      maxWidth: '48rem',
+                      mx: 'auto',
+                      lineHeight: 1.6,
+                      fontSize: '1.25rem',
+                      mb:3,
+                    }}
+                  >
+                     At eu lobortis pretium tristique amet lacus ut senectus aliquet.
+                    
+                  </Typography>
 
       {faqs.map((faq) => {
         const isExpanded = expandedId === faq.id;
