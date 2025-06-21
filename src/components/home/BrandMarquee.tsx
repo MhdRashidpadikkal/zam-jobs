@@ -6,18 +6,50 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const logos = [
-  { src: "/brands/google.png", alt: "Google" },
-  { src: "/brands/meta.png", alt: "Meta" },
-  { src: "/brands/netflix.png", alt: "Netflix" },
-  { src: "/brands/amazon.png", alt: "Amazon" },
-  { src: "/brands/microsoft.png", alt: "Microsoft" },
-  { src: "/brands/slack.png", alt: "Slack" },
-  { src: "/brands/meta.png", alt: "Rashid" },
-  { src: "/brands/netflix.png", alt: "Mrithul" },
-  { src: "/brands/amazon.png", alt: "Unais" },
-  { src: "/brands/microsoft.png", alt: "Biju" },
-  { src: "/brands/slack.png", alt: "Sadik" },
-];
+    {
+      src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+      alt: "Google"
+    },
+    {
+        src: "/images/common/flipkart-icon.svg",
+        alt: "Flipkart"
+      },      
+    {
+      src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+      alt: "Netflix"
+    },
+    {
+      src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+      alt: "Amazon"
+    },
+    {
+      src: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+      alt: "Microsoft"
+    },
+    {
+      src: "https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png",
+      alt: "Slack"
+    },
+    {
+      src: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg",
+      alt: "IBM"
+    },
+    {
+        src: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+        alt: "Nike"
+      },
+      {
+        src: "https://razorpay.com/build/browser/static/razorpay-logo.5cdb58df.svg",
+        alt: "Razorpay"
+      }
+      ,
+      {
+        src: "https://cdn.worldvectorlogo.com/logos/shopify.svg",
+        alt: "Shopify"
+      }
+      
+  ];
+  
 
 const BrandMarquee = () => {
   const theme = useTheme();
@@ -33,9 +65,8 @@ const BrandMarquee = () => {
     <Box
       sx={{
         overflow: "hidden",
-        py: 6,
-        mt: 10,
-        background: alpha(theme.palette.primary.light, 0.05),
+        py: 3,
+        mt: 7,
         position: "relative",
       }}
     >
@@ -46,14 +77,12 @@ const BrandMarquee = () => {
           textAlign: "center",
           mb: 4,
           fontWeight: 600,
-          color: theme.palette.text.primary,
+          color: 'black',
           fontSize: { xs: "1.5rem", md: "2rem" },
         }}
       >
-        Trusted by{" "}
-        <Box component="span" sx={{ color: theme.palette.primary.main }}>
-          1000+ Companies
-        </Box>
+        Trusted over 1k+ Company
+        
       </Typography>
 
       {/* Logo Marquee */}
@@ -67,8 +96,7 @@ const BrandMarquee = () => {
     width: "70px",
     height: "100%",
     zIndex: 2,
-    backdropFilter: "blur(1px)", // The blur effect
-    // backgroundColor: alpha(theme.palette.background.paper, 0.4), // Slight tint
+    background:  `linear-gradient(to right, linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 100%) 0%, transparent 100%)`, // Slight tint
   }}
 />
 
@@ -79,10 +107,10 @@ const BrandMarquee = () => {
             position: "absolute",
             top: 0,
             right: 0,
-            width: "80px",
+            width: "180px",
             height: "100%",
             zIndex: 2,
-            background: `linear-gradient(to left, red 0%, transparent 100%)`,
+            background: `linear-gradient(to left, linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 100%) 0%, transparent 100%)`,
           }}
         />
 
@@ -101,12 +129,10 @@ const BrandMarquee = () => {
                     width={120}
                     height={60}
                     style={{
-                      width: "auto",
-                      height: "60px",
-                      objectFit: "contain",
-                      filter: "grayscale(100%)",
-                      opacity: 0.7,
-                    }}
+                        filter: "brightness(0) ",
+                        height: "60px",
+                        objectFit: "contain"
+                      }}
                   />
                 </Box>
               ))}
