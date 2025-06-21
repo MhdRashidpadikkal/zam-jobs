@@ -2,6 +2,7 @@
 
 import {
   Box,
+  Container,
   Drawer,
   IconButton,
   List,
@@ -49,7 +50,7 @@ export default function Header() {
 
 
   return (
-    <Box sx={{marginBottom:{xs:'70px',md:'100px'}}}>
+    <Container maxWidth="lg" sx={{marginBottom:{xs:'70px',md:'100px'}}}>
       <Box
         sx={{
           position: "relative",
@@ -159,14 +160,14 @@ export default function Header() {
             sx={{
               display: { xs: "none", md: "flex" },
               color: "white",
-              backgroundColor: theme.palette.primary.main,
+              backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
               textDecoration: "none",
               px: 4,
               py: 2,
               borderRadius: "50px",
               transition: "background-color 0.3s ease",
               "&:hover": {
-                backgroundColor: theme.palette.secondary.main,
+                backgroundImage: `linear-gradient(135deg,rgb(15, 63, 141), ${theme.palette.primary.dark})`,
               },
             }}
           >
@@ -217,7 +218,7 @@ export default function Header() {
                 sx={{
                   display: { xs: "flex", md: "none", justifyContent: "center" },
                   color: "white",
-                  backgroundColor: theme.palette.primary.main,
+                  backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
                   textDecoration: "none",
                   px: 4,
                   py: 2,
@@ -225,7 +226,7 @@ export default function Header() {
                   borderRadius: "10px",
                   transition: "background-color 0.3s ease",
                   "&:hover": {
-                    backgroundColor: theme.palette.secondary.main,
+                    backgroundImage: `linear-gradient(135deg,rgb(15, 63, 141), ${theme.palette.primary.dark})`,
                   },
                 }}
               >
@@ -255,6 +256,6 @@ export default function Header() {
           </Drawer>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 }
