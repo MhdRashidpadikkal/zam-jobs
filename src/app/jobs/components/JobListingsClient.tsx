@@ -13,12 +13,12 @@ import {
 } from '@mui/material';
 import { FilterList, Search } from '@mui/icons-material';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { Job } from '../../types/job';
 import JobCard from './JobCard';
 import JobFilterSidebar from './JobFilterSidebar';
 import SortDropdown from './SortDropdown';
 import PaginationControl from './PaginationControl';
 import HiringBanner from './HiringBanner';
+import { Job } from '@/types/job';
 
 interface JobListingsClientProps {
   jobs: Job[];

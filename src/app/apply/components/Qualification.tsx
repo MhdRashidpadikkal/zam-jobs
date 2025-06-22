@@ -1,19 +1,26 @@
 import { Box, Divider, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
-import { updateField, resetForm } from "@/store/slices/formSlice";
+import { updateField } from "@/store/slices/formSlice";
+import type { HigherQualification } from "@/store/slices/formSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-export default function Qualification({ errors }: { errors: any }) {
-  const dispatch = useDispatch();
-  const formData = useSelector((state: RootState) => state.form);
+interface QualificationProps {
+  errors: Record<keyof HigherQualification, string>;
+}
+
+export default function Qualification({ errors }: QualificationProps) {
+  const dispatch = useAppDispatch();
+  const formData = useAppSelector((state: RootState) => state.form);
   const handleChange = (
-    section: any,
-    field: string,
-    value: string | File | boolean | null
+    section: 'higherQualification',
+    field: keyof HigherQualification,
+    value: string
   ) => {
     dispatch(updateField({ section, field, value }));
   };
+
+  if (!formData) return null; // Add null check for formData
   return (
     <>
       <Typography

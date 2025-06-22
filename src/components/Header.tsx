@@ -97,7 +97,7 @@ export default function Header() {
                 fontSize: "1.2em",
               }}
             >
-              ZamJobs
+              Zaam Jobs
             </Typography>
           </Box>
 

@@ -16,12 +16,10 @@ import {
   Box,
   Fade,
   Slide,
-  useTheme,
   alpha,
 } from '@mui/material';
 
 const ContactPage = () => {
-  const theme = useTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

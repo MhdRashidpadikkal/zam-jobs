@@ -2,20 +2,22 @@ import { mockJobs } from '../../data/mockJobs';
 import JobListingsClient from './components/JobListingsClient';
 import { Job } from '@/types/job';
 
-const applyFilters = (jobs: Job[], searchParams: any): Job[] => {
+const applyFilters = (jobs: Job[], searchParams: { [key: string]: string | string[] | undefined }): Job[] => {
   let filteredJobs = [...jobs];
   const { search, location, category, jobType, experienceLevel } = searchParams;
 
   if (search) {
+    const searchStr = Array.isArray(search) ? search[0] : search;
     filteredJobs = filteredJobs.filter(job =>
-      job.title.toLowerCase().includes(search.toLowerCase()) ||
-      job.company.toLowerCase().includes(search.toLowerCase())
+      job.title.toLowerCase().includes(searchStr.toLowerCase()) ||
+      job.company.toLowerCase().includes(searchStr.toLowerCase())
     );
   }
 
   if (location) {
+    const locationStr = Array.isArray(location) ? location[0] : location;
     filteredJobs = filteredJobs.filter(job =>
-      job.location.toLowerCase().includes(location.toLowerCase())
+      job.location.toLowerCase().includes(locationStr.toLowerCase())
     );
   }
 
