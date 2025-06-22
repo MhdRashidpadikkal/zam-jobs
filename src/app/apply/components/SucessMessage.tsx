@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Box } from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 
 export default function SuccessAlert() {
   return (

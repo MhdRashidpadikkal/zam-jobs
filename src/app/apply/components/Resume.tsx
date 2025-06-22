@@ -1,14 +1,23 @@
-import { Box, Button, Divider, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Divider, Grid, Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import type { RootState } from "@/store/store";
-import { updateField, resetForm } from "@/store/slices/formSlice";
+import { updateField } from "@/store/slices/formSlice";
+import type { Files } from "@/store/slices/formSlice";
 
-export default function Resume () {
-    const dispatch=useDispatch();
-    const formData=useSelector((state :RootState)=>state.form);
-    const handleChange=(section:any,field:string,value:string |File |boolean|null)=>{
-        dispatch(updateField({ section, field, value }))}
+
+export default function Resume() {
+  const dispatch = useAppDispatch();
+  const formData = useAppSelector((state: RootState) => state.form);
+  const handleChange = (
+    section: 'files',
+    field: keyof Files,
+    value: File | null
+  ) => {
+    dispatch(updateField({ section, field, value }));
+  };
+
+  if (!formData) return null; // Add null check for formData
   return (
     <>
         <Typography variant="h6" gutterBottom fontWeight="bold" color="primary.dark">

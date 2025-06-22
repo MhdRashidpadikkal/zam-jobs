@@ -19,7 +19,7 @@ import {
   Schedule,
   CheckCircle
 } from '@mui/icons-material';
-import { Job } from '../types/job';
+import { Job } from '@/types/job';
 
 interface JobDetailsContentProps {
   job: Job;

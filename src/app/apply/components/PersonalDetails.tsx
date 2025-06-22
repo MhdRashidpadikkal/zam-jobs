@@ -1,19 +1,27 @@
 import { Box, Divider, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@/store/store";
-import { updateField, resetForm } from "@/store/slices/formSlice";
+import { updateField } from "@/store/slices/formSlice";
+import type { PersonalInfo } from "@/store/slices/formSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
-export default function PersonalDetails({ errors }: { errors: any }) {
-  const dispatch = useDispatch();
-  const formData = useSelector((state: RootState) => state.form);
+interface PersonalDetailsProps {
+  errors: Record<keyof PersonalInfo, string | null>;
+}
+
+export default function PersonalDetails({ errors }: PersonalDetailsProps) {
+  const dispatch = useAppDispatch();
+  const formData = useAppSelector((state: RootState) => state.form);
   const handleChange = (
-    section: any,
-    field: string,
-    value: string | File | boolean | null
+    section: 'personalInfo',
+    field: keyof PersonalInfo,
+    value: string
   ) => {
     dispatch(updateField({ section, field, value }));
   };
+
+  if (!formData) return null; // Add null check for formData
+
   return (
     <>
       <Typography

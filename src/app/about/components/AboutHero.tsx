@@ -25,6 +25,10 @@ import {
   HandshakeOutlined,
 } from '@mui/icons-material';
 
+interface ValueCardProps {
+    gradient: string;
+  }
+
 // Keyframes for animations
 const pulse = keyframes`
   0%, 100% {
@@ -109,7 +113,7 @@ const HeroCard = styled(Card)(() => ({
 
 
 
-const ValueCard = styled(Card)(({ theme, gradient }) => ({
+const ValueCard = styled(Card)<ValueCardProps>(({ theme, gradient }) => ({
   background: gradient,
   color: 'white',
   borderRadius: '16px',
@@ -217,7 +221,7 @@ const AboutHero = () => {
               }}
             >
               Connecting Dreams with{' '}
-              <GradientText component="span" variant="inherit">
+              <GradientText variant="inherit">
                 Opportunities
               </GradientText>
             </Typography>

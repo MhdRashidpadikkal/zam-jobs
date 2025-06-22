@@ -31,6 +31,11 @@ import {
   Business,
 } from '@mui/icons-material';
 
+interface ValueCardProps {
+  gradient: string;
+}
+
+
 // Styled components for custom animations
 const pulse = keyframes`
   0%, 100% {
@@ -160,7 +165,7 @@ const StatsCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const ServiceCard = styled(Card)(({ theme, gradient }) => ({
+const ServiceCard = styled(Card)<ValueCardProps>(({ theme, gradient }) => ({
   background: gradient,
   color: 'white',
   padding: theme.spacing(4),
@@ -299,7 +304,7 @@ const WhyChooseUs = () => {
               }}
             >
               Your Dream Job is{' '}
-              <GradientText component="span" variant="inherit">
+              <GradientText variant="inherit">
                 Just a Call Away
               </GradientText>
             </Typography>

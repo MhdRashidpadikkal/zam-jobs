@@ -8,17 +8,15 @@ import {
   Typography,
   Button,
   useTheme,
-  useMediaQuery,
   Breadcrumbs,
   Link
 } from '@mui/material';
 import { ArrowBack, Home, Work } from '@mui/icons-material';
 import { useRouter, useParams } from 'next/navigation';
-import { useAppSelector } from '../../../store/slices/hooks';
 import { Job } from '../../../types/job';
 import JobDetailsContent from '../components/JobDetailsContent';
-import JobOverviewSidebar from '../components/JobOverviewSidebar';
 import RelatedJobs from '../components/RelatedJobs';
+import { useAppSelector } from '@/store/hooks';
 
 const JobDetailsPage: React.FC = () => {
   const theme = useTheme();
@@ -103,17 +101,12 @@ const JobDetailsPage: React.FC = () => {
         {/* Main Content */}
         <Grid container spacing={4}>
           {/* Job Details Content */}
-          <Grid item xs={12} lg={8}>
+          <Grid size={{ xs: 12, lg: 8 }}>
             <JobDetailsContent job={job} />
             
             {/* Related Jobs */}
             <RelatedJobs currentJob={job} onViewDetails={handleViewDetails} />
           </Grid>
-
-          {/* Job Overview Sidebar */}
-          {/* <Grid item xs={12} lg={4}>
-            <JobOverviewSidebar job={job} />
-          </Grid> */}
         </Grid>
       </Box>
     </Box>

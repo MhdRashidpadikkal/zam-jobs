@@ -37,8 +37,8 @@ const Footer = () => {
           }}>
             <Box sx={{ display: 'flex' }}>
             <Image src="/images/common/zaam_logo_white.png" alt="Logo" width={100} height={100} />
-            <Typography variant="h4" sx={{ fontWeight: 700, fontSize: '3.5rem', mt: 2 }}>
-              ZamJobs
+            <Typography variant="h4" sx={{ fontWeight: 700, fontSize: '3rem', mt: 2 }}>
+              Zaam Jobs
             </Typography>
             </Box>
             <Typography variant="body2" mt={2} sx={{ opacity: 0.5, maxWidth: '22rem' }}>

@@ -13,7 +13,6 @@ import {
   Paper,
   Fade,
   Slide,
-  useTheme,
   alpha,
 } from '@mui/material';
 import {
@@ -26,7 +25,6 @@ import {
 
 const WorkingProcess = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const theme = useTheme();
 
   useEffect(() => {
     setIsVisible(true);
