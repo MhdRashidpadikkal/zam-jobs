@@ -25,7 +25,6 @@ const Footer = () => {
         mt: 10,
         mb: 4,
         color: 'white',
-        borderRadius: 5
       }}
     >
       <Container maxWidth="lg">

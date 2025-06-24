@@ -12,15 +12,17 @@ interface QualificationProps {
 export default function Qualification({ errors }: QualificationProps) {
   const dispatch = useAppDispatch();
   const formData = useAppSelector((state: RootState) => state.form);
+
   const handleChange = (
-    section: 'higherQualification',
+    section: "higherQualification",
     field: keyof HigherQualification,
     value: string
   ) => {
     dispatch(updateField({ section, field, value }));
   };
 
-  if (!formData) return null; // Add null check for formData
+  if (!formData) return null;
+
   return (
     <>
       <Typography
@@ -39,33 +41,45 @@ export default function Qualification({ errors }: QualificationProps) {
               label="Qualification"
               name="qualification"
               fullWidth
-              value={formData?.higherQualification.qualification}
+              value={formData.higherQualification.qualification}
               onChange={(e) =>
-                handleChange("higherQualification", "qualification", e.target.value)
+                handleChange(
+                  "higherQualification",
+                  "qualification",
+                  e.target.value
+                )
               }
+              inputProps={{ maxLength: 50 }}
               error={Boolean(errors?.qualification)}
               helperText={errors?.qualification}
             />
           </Grid>
+
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <TextField
               label="Institute Name"
               name="institute"
               fullWidth
-              value={formData?.higherQualification.institute}
+              value={formData.higherQualification.institute}
               onChange={(e) =>
-                handleChange("higherQualification", "institute", e.target.value)
+                handleChange(
+                  "higherQualification",
+                  "institute",
+                  e.target.value
+                )
               }
+              inputProps={{ maxLength: 50 }}
               error={Boolean(errors?.institute)}
               helperText={errors?.institute}
             />
           </Grid>
+
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <TextField
               label="Year Completed"
               name="yearCompleted"
               fullWidth
-              value={formData?.higherQualification.yearCompleted}
+              value={formData.higherQualification.yearCompleted}
               onChange={(e) =>
                 handleChange(
                   "higherQualification",
@@ -73,6 +87,7 @@ export default function Qualification({ errors }: QualificationProps) {
                   e.target.value
                 )
               }
+              inputProps={{ maxLength: 50 }}
             />
           </Grid>
         </Grid>

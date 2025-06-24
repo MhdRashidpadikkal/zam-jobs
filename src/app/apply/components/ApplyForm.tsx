@@ -37,42 +37,51 @@ export default function ApplyForm() {
   }
   
   const handleNext = () => {
-    const errors: StepErrors = {}
-    switch (activeStep) {
-      case 0:
-        const personalInfoErrors = validatePersonalInfo(formData.personalInfo)
-        if (Object.keys(personalInfoErrors).length > 0) {
-          errors.personalInfo = personalInfoErrors
-        }
-        break
-      case 1:
-        const qualificationErrors = validateQualification(formData.higherQualification)
-        if (Object.keys(qualificationErrors).length > 0) {
-          errors.higherQualification = qualificationErrors
-        }
-        break
-      case 2:
-        const experienceErrors = validateExperience(formData.experience)
-        if (Object.keys(experienceErrors).length > 0) {
-          errors.experience = experienceErrors
-        }
-        break
-      // case 3:
-      //   const resumeErrors = validateResume(formData.files)
-      //   if (Object.keys(resumeErrors).length > 0) {
-      //     errors.files = resumeErrors
-      //   }
-      //   break
+  const errors: StepErrors = {}
+
+  switch (activeStep) {
+    case 0: {
+      const personalInfoErrors = validatePersonalInfo(formData.personalInfo)
+
+      // ✅ Only block if any field has a non-null error
+      const hasErrors = Object.values(personalInfoErrors).some((v) => v !== null)
+
+      if (hasErrors) {
+        errors.personalInfo = personalInfoErrors
+      }
+      break
     }
 
-    if (Object.keys(errors).length > 0) {
-      setStepErrors(errors)
-      return
+    case 1: {
+      const qualificationErrors = validateQualification(formData.higherQualification)
+
+      if (Object.keys(qualificationErrors).length > 0) {
+        errors.higherQualification = qualificationErrors
+      }
+      break
     }
 
-    setStepErrors({})
-    setActiveStep((prev) => prev + 1)
+    case 2: {
+      const experienceErrors = validateExperience(formData.experience)
+
+      if (Object.keys(experienceErrors).length > 0) {
+        errors.experience = experienceErrors
+      }
+      break
+    }
   }
+
+  // ✅ Final check: block if errors object is not empty
+  if (Object.keys(errors).length > 0) {
+    setStepErrors(errors)
+    return
+  }
+
+  // ✅ Clear errors and move to next step
+  setStepErrors({})
+  setActiveStep((prev) => prev + 1)
+}
+
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -118,7 +127,7 @@ export default function ApplyForm() {
                       display: activeStep === 0 ? "none" : "inline-flex",
                       px: 4,
                       backgroundColor: theme.palette.primary.main,
-                      color: theme.palette.primary.contrastText,
+                      color: "white",
                       '&:hover': {
                         backgroundColor: theme.palette.secondary.main,
                       },
@@ -134,7 +143,7 @@ export default function ApplyForm() {
                       background: activeStep === steps.length - 1 
                         ? 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)' 
                         : theme.palette.primary.main,
-                      color: theme.palette.primary.contrastText,
+                      color: "white",
                       '&:hover': {
                         backgroundColor: theme.palette.secondary.main,
                       },
