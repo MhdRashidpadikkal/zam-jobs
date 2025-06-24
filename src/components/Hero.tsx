@@ -277,6 +277,7 @@ export default function Hero() {
                     width={400}
                     height={400}
                     style={{ width: "100%", height: "100%" }}
+                    priority
                   />
                 </Box>
                 
