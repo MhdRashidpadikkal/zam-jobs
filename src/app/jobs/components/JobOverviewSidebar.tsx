@@ -17,8 +17,8 @@ import {
   School,
   AttachMoney
 } from '@mui/icons-material';
-import { Job } from '../types/job';
 import ApplyJobButton from './ApplyJobButton';
+import { Job } from '@/types/job';
 
 interface JobOverviewSidebarProps {
   job: Job;

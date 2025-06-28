@@ -2,12 +2,11 @@ import React from 'react';
 import {
   Box,
   Typography,
-  Grid,
   useTheme,
   useMediaQuery
 } from '@mui/material';
-import { useAppSelector } from '../store/slices/hooks';
-import { Job } from '../types/job';
+import { useAppSelector } from '@/store/hooks';
+import { Job } from '@/types/job';
 import JobCard from './JobCard';
 
 interface RelatedJobsProps {
@@ -18,11 +17,11 @@ interface RelatedJobsProps {
 const RelatedJobs: React.FC<RelatedJobsProps> = ({ currentJob, onViewDetails }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { jobs } = useAppSelector((state) => state.jobs);
+  const jobs = useAppSelector((state) => state.jobs.jobs);
 
   // Get related jobs based on category and excluding current job
   const relatedJobs = jobs
-    .filter(job => 
+    .filter((job: Job) => 
       job.id !== currentJob.id && 
       (job.category === currentJob.category || 
        job.location === currentJob.location ||
@@ -47,15 +46,15 @@ const RelatedJobs: React.FC<RelatedJobsProps> = ({ currentJob, onViewDetails }) 
         Related Jobs
       </Typography>
 
-      <Grid container spacing={3}>
-        {relatedJobs.map((job) => (
-          <Grid item xs={12} sm={6} md={4} key={job.id}>
+      <Box display="flex" flexWrap="wrap" gap={3}>
+        {relatedJobs.map((job: Job) => (
+          <Box sx={{ width: { xs: '100%', sm: '50%', md: '33.33%' } }} key={job.id}>
             <JobCard job={job} onViewDetails={onViewDetails} />
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };
 
-export default RelatedJobs; 
+export default RelatedJobs;

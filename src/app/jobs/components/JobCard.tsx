@@ -6,19 +6,17 @@ import {
   Chip,
   Button,
   Box,
-  Grid,
   useTheme,
   useMediaQuery,
   Paper,
-  Divider
+  Divider,
 } from '@mui/material';
 import {
   Business,
   LocationOn,
   Work,
-  Schedule
 } from '@mui/icons-material';
-import { Job } from '../types/job';
+import { Job } from '@/types/job';
 
 interface JobCardProps {
   job: Job;
@@ -43,12 +41,10 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
           alignItems: isMobile ? 'stretch' : 'center',
           justifyContent: 'space-between',
           transition: 'all 0.3s ease-in-out',
-          background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.grey[50]} 100%)`,
           border: `1px solid ${theme.palette.divider}`,
           '&:hover': {
             transform: isMobile ? 'translateY(-2px)' : 'translateX(4px)',
             boxShadow: theme.shadows[4],
-            background: `linear-gradient(135deg, ${theme.palette.primary[50]} 0%, ${theme.palette.background.paper} 100%)`,
             borderColor: theme.palette.primary.main,
           },
         }}
@@ -67,7 +63,6 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
               width: 60,
               height: 60,
               borderRadius: 2,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -126,8 +121,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
                   label={job.jobType}
                   size="small"
                   sx={{
-                    backgroundColor: theme.palette.success[100],
-                    color: theme.palette.success[700],
+                    backgroundColor: '#FFCDD2',
+                    color: '#B71C1C',
                     fontWeight: 500,
                     fontSize: isMobile ? '0.7rem' : '0.75rem',
                   }}
@@ -136,8 +131,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
                   label={job.experienceLevel}
                   size="small"
                   sx={{
-                    backgroundColor: theme.palette.info[100],
-                    color: theme.palette.info[700],
+                    backgroundColor: '#FFCDD2',
+                    color: '#B71C1C',
                     fontWeight: 500,
                     fontSize: isMobile ? '0.7rem' : '0.75rem',
                   }}
@@ -172,8 +167,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
                 label={tag}
                 size="small"
                 sx={{
-                  backgroundColor: theme.palette.warning[100],
-                  color: theme.palette.warning[700],
+                  backgroundColor: '#FFCDD2',
+                  color: '#B71C1C',
                   fontWeight: 500,
                   fontSize: isMobile ? '0.7rem' : '0.75rem',
                 }}
@@ -234,7 +229,6 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
         '&:hover': {
           transform: 'translateY(-4px)',
           boxShadow: theme.shadows[8],
-          background: `linear-gradient(135deg, ${theme.palette.primary[50]} 0%, ${theme.palette.background.paper} 100%)`,
         },
         border: `1px solid ${theme.palette.divider}`,
       }}
@@ -255,7 +249,6 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
               height: 50,
               mr: 2,
               borderRadius: 2,
-              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -303,8 +296,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
               label={job.jobType}
               size="small"
               sx={{
-                backgroundColor: theme.palette.success[100],
-                color: theme.palette.success[700],
+                backgroundColor: '#FFCDD2',
+                color: '#B71C1C',
                 fontWeight: 500,
               }}
             />
@@ -312,8 +305,8 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
               label={job.experienceLevel}
               size="small"
               sx={{
-                backgroundColor: theme.palette.info[100],
-                color: theme.palette.info[700],
+                backgroundColor: '#FFCDD2',
+                color: '#B71C1C',
                 fontWeight: 500,
               }}
             />

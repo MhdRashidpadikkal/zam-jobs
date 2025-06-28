@@ -3,7 +3,7 @@
 import { Box, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const RotatingBorderBox = styled(Box)(({ theme }) => ({
+const RotatingBorderBox = styled(Box)(() => ({
   position: "relative",
   overflow: "hidden",
   display: "inline-flex",

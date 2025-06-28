@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Footer from "@/components/Footer";
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default async function RootLayout({
         <Providers>
           {children}
           <Footer />
+          <Analytics />
         </Providers>
       </body>
     </html>
