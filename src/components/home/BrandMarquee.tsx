@@ -65,8 +65,7 @@ const BrandMarquee = () => {
     <Box
       sx={{
         overflow: "hidden",
-        py: 3,
-        mt: 7,
+        mt: {xs:4,md:7},
         position: "relative",
       }}
     >
@@ -76,9 +75,10 @@ const BrandMarquee = () => {
         sx={{
           textAlign: "center",
           mb: 4,
-          fontWeight: 600,
+          fontWeight: 700,
           color: 'black',
-          fontSize: { xs: "1.5rem", md: "2rem" },
+          fontSize: { xs: "1rem", md: "2rem" },
+         
         }}
       >
         Trusted over 1k+ Company
@@ -121,7 +121,7 @@ const BrandMarquee = () => {
               {logos.map((logo, index) => (
                 <Box
                   key={`${i}-${index}`}
-                  sx={{ pr: { xs: 5, sm: 10 }, minWidth: 120, }}
+                  sx={{ pr: { xs: 5, sm: 10 }, minWidth: 100, }}
                 >
                   <Image
                     src={logo.src}
