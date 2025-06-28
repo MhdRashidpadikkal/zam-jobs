@@ -1,77 +1,7 @@
-// import { mockJobs } from '../../data/mockJobs';
-// import JobListingsClient from './components/JobListingsClient';
-// import { Job } from '@/types/job';
-
-// const applyFilters = (jobs: Job[], searchParams: { [key: string]: string | string[] | undefined }): Job[] => {
-//   let filteredJobs = [...jobs];
-//   const { search, location, category, jobType, experienceLevel } = searchParams;
-
-//   if (search) {
-//     const searchStr = Array.isArray(search) ? search[0] : search;
-//     filteredJobs = filteredJobs.filter(job =>
-//       job.title.toLowerCase().includes(searchStr.toLowerCase()) ||
-//       job.company.toLowerCase().includes(searchStr.toLowerCase())
-//     );
-//   }
-
-//   if (location) {
-//     const locationStr = Array.isArray(location) ? location[0] : location;
-//     filteredJobs = filteredJobs.filter(job =>
-//       job.location.toLowerCase().includes(locationStr.toLowerCase())
-//     );
-//   }
-
-//   if (category) {
-//     filteredJobs = filteredJobs.filter(job => job.category === category);
-//   }
-
-//   if (jobType) {
-//     filteredJobs = filteredJobs.filter(job => job.jobType === jobType);
-//   }
-
-//   if (experienceLevel) {
-//     filteredJobs = filteredJobs.filter(job => job.experienceLevel === experienceLevel);
-//   }
-
-//   return filteredJobs;
-// };
-
-// const sortJobs = (jobs: Job[], sortBy: string): Job[] => {
-//   switch (sortBy) {
-//     case 'salary':
-//       return [...jobs].sort((a, b) => b.salaryRange.max - a.salaryRange.max);
-//     case 'title':
-//       return [...jobs].sort((a, b) => a.title.localeCompare(b.title));
-//     case 'company':
-//       return [...jobs].sort((a, b) => a.company.localeCompare(b.company));
-//     default: // latest
-//       return [...jobs].sort((a, b) => {
-//         const aDays = parseInt(a.postedTime.split(' ')[0]);
-//         const bDays = parseInt(b.postedTime.split(' ')[0]);
-//         return aDays - bDays;
-//       });
-//   }
-// };
-
-// export default async function JobListingsPage({
-//   searchParams,
-// }: {
-//   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-// }) {
-//   const allJobs = mockJobs;
-//   const resolvedSearchParams = await searchParams;
-
-//   const filteredJobs = applyFilters(allJobs, resolvedSearchParams);
-//   const sortedJobs = sortJobs(filteredJobs, resolvedSearchParams.sortBy as string);
-
-//   return <JobListingsClient jobs={sortedJobs} />;
-// }
-
-
 // app/jobs/page.tsx (or app/page.tsx)
 import { supabase } from '@/lib/supabaseClient';
-import JobListingsClient from './components/JobListingsClient'; // Assuming this remains a client component for UI interactions
-import { Job } from '@/types/job'; // Ensure this path is correct for your Job interface
+import JobListingsClient from './components/JobListingsClient';
+import { Job } from '@/types/job';
 
 // Define the type for data directly from Supabase to help with transformation
 interface SupabaseJobData {
@@ -128,7 +58,6 @@ const transformSupabaseJobToFrontendJob = (supabaseJob: SupabaseJobData): Job =>
   };
 };
 
-
 const applyFilters = (jobs: Job[], searchParams: { [key: string]: string | string[] | undefined }): Job[] => {
   let filteredJobs = [...jobs];
   const { search, location, category, jobType, experienceLevel } = searchParams;
@@ -138,8 +67,8 @@ const applyFilters = (jobs: Job[], searchParams: { [key: string]: string | strin
     filteredJobs = filteredJobs.filter(job =>
       job.title.toLowerCase().includes(searchStr.toLowerCase()) ||
       job.company.toLowerCase().includes(searchStr.toLowerCase()) ||
-      job.description.toLowerCase().includes(searchStr.toLowerCase()) || // Often include description in search
-      job.skills.some(skill => skill.toLowerCase().includes(searchStr.toLowerCase())) // Search skills
+      job.description.toLowerCase().includes(searchStr.toLowerCase()) ||
+      job.skills.some(skill => skill.toLowerCase().includes(searchStr.toLowerCase()))
     );
   }
 
@@ -151,7 +80,6 @@ const applyFilters = (jobs: Job[], searchParams: { [key: string]: string | strin
   }
 
   if (category) {
-    // Ensure category is a string before comparison
     const categoryStr = Array.isArray(category) ? category[0] : category;
     filteredJobs = filteredJobs.filter(job => job.category === categoryStr);
   }
@@ -170,64 +98,64 @@ const applyFilters = (jobs: Job[], searchParams: { [key: string]: string | strin
 };
 
 const sortJobs = (jobs: Job[], sortBy: string | undefined): Job[] => {
-  if (!sortBy) return jobs; // Return unsorted if no sortBy parameter
+  if (!sortBy) return jobs;
 
   switch (sortBy) {
     case 'salary':
-      // Sort by max salary descending
       return [...jobs].sort((a, b) => b.salaryRange.max - a.salaryRange.max);
     case 'title':
-      // Sort by title alphabetically
       return [...jobs].sort((a, b) => a.title.localeCompare(b.title));
     case 'company':
-      // Sort by company alphabetically
       return [...jobs].sort((a, b) => a.company.localeCompare(b.company));
-    case 'latest': // Default or explicit 'latest' sort
+    case 'latest':
     default:
-      // Sort by posted_time (newest first). Supabase 'posted_time' is a timestamp.
-      // Convert to Date objects for proper comparison.
       return [...jobs].sort((a, b) => {
         const dateA = new Date(a.postedTime).getTime();
         const dateB = new Date(b.postedTime).getTime();
-        return dateB - dateA; // Descending order (newest first)
+        return dateB - dateA;
       });
   }
 };
 
+// **HERE'S THE CRITICAL CHANGE**
+interface JobListingsPageProps {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>; // searchParams itself is a Promise
+}
+
 export default async function JobListingsPage({
   searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+}: JobListingsPageProps) {
   let allJobs: Job[] = [];
   let fetchError: string | null = null;
+
+  // Await searchParams before using it
+  const resolvedSearchParams = searchParams ? await searchParams : {}; // Await the promise
 
   try {
     const { data, error: supabaseError } = await supabase
       .from('jobs')
-      .select('*') // Selects all columns from the Supabase table
-      .order('posted_time', { ascending: false }); // Order by newest jobs first
+      .select('*')
+      .order('posted_time', { ascending: false });
 
     if (supabaseError) {
       throw supabaseError;
     }
 
     if (data) {
-      // Transform the fetched Supabase data into your frontend Job interface format
       allJobs = data.map(transformSupabaseJobToFrontendJob);
     }
   } catch (err: any) {
     console.error('Error fetching jobs from Supabase:', err.message);
     fetchError = err.message;
-    // In a production app, consider using an error.js boundary here
   }
 
   if (fetchError) {
     return <div>Error loading jobs: {fetchError}</div>;
   }
-  
-  const filteredJobs = applyFilters(allJobs, searchParams);
-  const sortedJobs = sortJobs(filteredJobs, searchParams.sortBy as string | undefined);
+
+  // Use the resolved searchParams for filtering and sorting
+  const filteredJobs = applyFilters(allJobs, resolvedSearchParams);
+  const sortedJobs = sortJobs(filteredJobs, resolvedSearchParams.sortBy as string | undefined);
 
   return <JobListingsClient jobs={sortedJobs} />;
 }
