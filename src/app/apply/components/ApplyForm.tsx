@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import SuccessAlert from './SucessMessage';
 import { StepErrors } from '@/store/slices/formSlice';
+import { supabase } from '@/lib/supabaseClient';
 
 const steps = ["Personal Information", "Qualification", "Experience", "Upload Resume"]
 
@@ -23,18 +24,83 @@ export default function ApplyForm() {
   const formData = useSelector((state: RootState) => state.form);
   const [stepErrors, setStepErrors] = useState<StepErrors>({});
   const [success, setSuccess] = useState(false)
+  const [localResume, setLocalResume] = useState<File | null>(null); 
+
 
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const handleBack = () => setActiveStep(activeStep - 1)
-  const handleSubmit = () => {
-    const formDataToSend = { ...formData }
-    console.log("Submitting form data:", formDataToSend)
+  const handleSubmit = async () => {
+    const formDataToSend = { ...formData };
+    console.log('Submitting form data:', formDataToSend);
+  
+    try {
+      let resumeUrl: string | null = null;
+      console.log("localResume is ", localResume);
+  
+      // Upload resume if selected
+      if (localResume) {
+        const fileExt = localResume.name.split('.').pop();
+        const fileName = `${Date.now()}.${fileExt}`;
+        const { error: uploadError } = await supabase.storage
+          .from('resumes')
+          .upload(fileName, localResume);
 
-    // Later we'll send this to a backend
-    setSuccess(true)
-    setActiveStep(activeStep + 1)
-  }
+          console.log("upload started", fileName, localResume)
+  
+          if (uploadError) {
+            console.error("Upload error details:", uploadError);
+            throw uploadError;
+          }
+
+          console.log("upload completed")
+            
+        const { data: publicUrlData } = supabase
+          .storage
+          .from('resumes')
+          .getPublicUrl(fileName);
+  
+        resumeUrl = publicUrlData?.publicUrl ?? null;
+        console.log('Resume URL:', resumeUrl);
+      }
+
+      const { data: { user } } = await supabase.auth.getUser()
+      console.log("user is is", user?.id)
+  
+      // Insert form data to Supabase DB
+      const { error: insertError } = await supabase.from('job_applications').insert([
+        {
+          user_id: user?.id,
+          first_name: formData.personalInfo.firstName,
+          last_name: formData.personalInfo.lastName,
+          email: formData.personalInfo.email,
+          phone: formData.personalInfo.phone,
+          whatsapp_no: formData.personalInfo.whatsAppNo,
+          place: formData.personalInfo.place,
+          preferred_location: formData.personalInfo.preferredLocation,
+  
+          qualification: formData.higherQualification.qualification,
+          institute: formData.higherQualification.institute,
+          year_completed: formData.higherQualification.yearCompleted,
+  
+          current_company: formData.experience.currentCompany,
+          current_position: formData.experience.currentPosition,
+          years_of_experience: formData.experience.yearsOfExperience,
+          is_fresher: formData.experience.isfresher,
+  
+          resume_url: resumeUrl,
+        },
+      ]);
+  
+      if (insertError) throw insertError;
+      console.log("insert error is ", insertError);
+  
+      setSuccess(true);
+      setActiveStep(activeStep + 1);
+    } catch (err) {
+      console.error('Form submission error:', err);
+    }
+  };
   
   const handleNext = () => {
   const errors: StepErrors = {}
@@ -92,7 +158,7 @@ export default function ApplyForm() {
       case 2:
         return <Experience errors={stepErrors.experience || { currentCompany: '', currentPosition: '', yearsOfExperience: '', isfresher: '' }} />
       case 3:
-        return <Resume />
+        return <Resume setLocalResume={setLocalResume} />
       default:
         return null
     }

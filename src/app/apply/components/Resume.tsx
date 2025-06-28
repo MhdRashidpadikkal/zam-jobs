@@ -1,23 +1,16 @@
 import { Box, Button, Divider, Grid, Typography } from '@mui/material'
 import React from 'react'
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import type { RootState } from "@/store/store";
-import { updateField } from "@/store/slices/formSlice";
-import type { Files } from "@/store/slices/formSlice";
 
+interface ResumeProps {
+  setLocalResume: React.Dispatch<React.SetStateAction<File | null>>;
+}
 
-export default function Resume() {
-  const dispatch = useAppDispatch();
-  const formData = useAppSelector((state: RootState) => state.form);
-  const handleChange = (
-    section: 'files',
-    field: keyof Files,
-    value: File | null
-  ) => {
-    dispatch(updateField({ section, field, value }));
+export default function Resume({ setLocalResume }: ResumeProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] ?? null;
+    setLocalResume(file);
   };
 
-  if (!formData) return null; // Add null check for formData
   return (
     <>
         <Typography variant="h6" gutterBottom fontWeight="bold" color="primary.dark">
@@ -36,16 +29,9 @@ export default function Resume() {
                         type="file"
                         hidden
                         accept=".pdf,.doc,.docx"
-                        onChange={(e) =>
-                          handleChange("files", "resume", e.target.files?.[0] || null)
-                        }
+                        onChange={handleChange}
                       />
                     </Button>
-                    {formData?.files?.resume && (
-                      <Typography variant="body2" mt={1}>
-                        {formData?.files.resume.name}
-                      </Typography>
-                    )}
             </Grid>
        </Box>
         

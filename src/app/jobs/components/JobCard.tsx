@@ -161,7 +161,7 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
             maxWidth: isMobile ? '100%' : 200,
             justifyContent: isMobile ? 'flex-start' : 'flex-end'
           }}>
-            {job.tags.slice(0, isMobile ? 3 : 2).map((tag, index) => (
+            {job.tags?.slice(0, isMobile ? 3 : 2).map((tag, index) => (
               <Chip
                 key={index}
                 label={tag}
@@ -174,9 +174,9 @@ const JobCard: React.FC<JobCardProps> = ({ job, onViewDetails, viewMode = 'card'
                 }}
               />
             ))}
-            {job.tags.length > (isMobile ? 3 : 2) && (
+            {job.tags?.length > (isMobile ? 3 : 2) && (
               <Chip
-                label={`+${job.tags.length - (isMobile ? 3 : 2)}`}
+                label={`+${job.tags?.length - (isMobile ? 3 : 2)}`}
                 size="small"
                 variant="outlined"
                 sx={{
