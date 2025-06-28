@@ -6,7 +6,8 @@ import {
   Search as SearchIcon,
   LocationOn as LocationOnIcon,
   ArrowForward as ArrowForwardIcon
-} from '@mui/icons-material';import { motion } from "framer-motion";
+} from '@mui/icons-material';
+import { motion } from "framer-motion";
 import Header from "./Header";
 import Image from "next/image";
 import RotatingBorderButton from "./RotatingBorderButton";
@@ -89,6 +90,7 @@ export default function Hero() {
       border: `1px solid ${theme.palette.secondary.contrastText}`,
       margin: { xs: 1, md: 2 },
       display: "flex",
+      px:1,
       flexDirection: "column",
       justifyContent: "center",
       borderRadius: 5,
@@ -146,7 +148,7 @@ export default function Hero() {
                   variant="h6"
                   component="h1"
                   sx={{
-                    mb: 1,
+                    my: 1,
                     color: theme.palette.text.secondary,
                     fontWeight: "500",
                     background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
@@ -171,6 +173,7 @@ export default function Hero() {
                 color: "primary.main",
                 textAlign: "center",
                 lineHeight: 1.4,
+                my:1,
                 px: { xs: 0, md: 10 }
               }}
             >
@@ -210,9 +213,10 @@ export default function Hero() {
                 <Typography
                   variant="h6"
                   sx={(theme) => ({
-                    fontSize: { xs: "13px", md: "20px" },
+                    fontSize: { xs: "11px",sm:'13px', md: "20px" },
                     mb: { xs: 0, md: 3 },
                     mt: 2,
+                    my:1,
                     color: theme.palette.primary.contrastText,
                     maxWidth: "600px",
                   })}
@@ -228,6 +232,7 @@ export default function Hero() {
                   gap: 2,
                   justifyContent: "center",
                   mb: { xs: 0, md: 5 },
+                  my:1
                 }}
               >
                 <motion.div
@@ -236,6 +241,7 @@ export default function Hero() {
                   transition={{ duration: 0.2 }}
                 >
                   <Button
+                  href="/jobs"
                     variant="contained"
                     sx={{
                       color: "white",
@@ -266,6 +272,7 @@ export default function Hero() {
                 <Box
                   sx={{
                     margin: -0.8,
+                    mt:1,
                     padding: 0,
                     overflow: "hidden",
                     width: { xs: "160px", sm: "250px", md: "350px", lg: "300px" },
@@ -285,10 +292,10 @@ export default function Hero() {
                 <MotionBox
               sx={{
                 position: 'absolute',
-                left: { xs: -114, md: -238 },
-                top: { xs: 120, md: '70%' },
+                left: { xs: -90,sm:-175, md: -238 },
+                top: { xs: 40,sm:70, md: '70%' },
                 transform: 'translateY(-20%)',
-                width: { xs: 150, md: 288 },
+                width: { xs: 150,sm:220, md: 288 },
                 height: { xs: 10, md: 144 },
               }}
               whileHover={{ scale: 1.05 }}
@@ -308,10 +315,10 @@ export default function Hero() {
                 
                 <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: { xs: 1, md: 2 } }}>
                   <IconContainer className="emerald">
-                    <LocationOnIcon sx={{ color: 'white', fontSize: { xs: 20, md: 24 } }} />
+                    <LocationOnIcon sx={{ color: 'white', fontSize: { xs: 14, md: 24 } }} />
                   </IconContainer>
                   <Box>
-                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: 12, md: 20 } }}>
+                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: 10,sm:'1.2rem', md: 20 } }}>
                       Find Jobs <Box sx={{ display: { xs: 'none', md: 'inline' } }}>Nearby</Box>
                     </Typography>
                     {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -322,7 +329,7 @@ export default function Hero() {
                         display: 'flex',
                         alignItems: 'center',
                         color: '#059669',
-                        fontSize: { xs: '11px', md: '0.875rem' },
+                        fontSize: { xs: '8px',sm:15, md: '0.875rem' },
                         fontWeight: 500,
                         cursor: 'pointer',
                         '&:hover .arrow': {
@@ -375,9 +382,9 @@ export default function Hero() {
             <MotionBox
               sx={{
                 position: 'absolute',
-                right: { xs: -100, md: -228 },
-                top: { xs: 22, md: 32 },
-                width: { xs: 150, md: 288 },
+                right: { xs: -90,sm:-180, md: -228 },
+                top: { xs: 140,sm:210, md: 70 },
+                width: { xs: 150,sm:220, md: 288 },
                 height: { xs: 10, md: 144 },
               }}
               whileHover={{ scale: 1.05 }}
@@ -397,10 +404,10 @@ export default function Hero() {
                 
                 <Box sx={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: { xs: 1, md: 4 } }}>
                   <IconContainer className="purple">
-                    <SearchIcon sx={{ color: 'white', fontSize: { xs: 16, md: 24 } }} />
+                    <SearchIcon sx={{ color: 'white', fontSize: { xs: 14, md: 24 } }} />
                   </IconContainer>
                   <Box>
-                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: '14px', md: '1.25rem' } }}>
+                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: { xs: 10,sm:'1.2rem', md: '1.25rem' } }}>
                       Hire Faster
                     </Typography>
                     {/* <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -411,7 +418,7 @@ export default function Hero() {
                         display: 'flex',
                         alignItems: 'center',
                         color: '#002D62',
-                        fontSize: { xs: '10px', md: '0.875rem' },
+                        fontSize: { xs: '8px',sm:15, md: '0.875rem' },
                         fontWeight: 500,
                         cursor: 'pointer',
                         '&:hover .arrow': {

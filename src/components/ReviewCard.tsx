@@ -143,7 +143,7 @@ const ReviewCard = () => {
            sx={{
     position: "relative",
     padding: 3,
-    height: "90vh",
+       height: {xs:'50vh',md:'90vh'},
     borderRadius:5,
     overflow: "hidden",
     background: `
