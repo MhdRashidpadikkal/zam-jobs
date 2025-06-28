@@ -10,6 +10,7 @@ import { store } from "../store/store";
 import { theme } from "@/theme";
 import Header from "@/components/Header";
 import { usePathname } from "next/navigation";
+import ToastProvider from "./ToastProvider";
 
 const clientSideEmotionCache = createCache({
   key: "css",
@@ -22,9 +23,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <ReduxProvider store={store}>
       <CacheProvider value={clientSideEmotionCache}>
         <ThemeProvider theme={theme}>
+          {/* <ToastProvider> */}
           <CssBaseline />
           {pathname !== '/' && pathname !== '/jobs'  && <Header /> }
           {children}
+          {/* </ToastProvider> */}
         </ThemeProvider>
       </CacheProvider>
     </ReduxProvider>
