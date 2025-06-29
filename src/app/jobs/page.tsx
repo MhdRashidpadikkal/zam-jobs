@@ -135,6 +135,7 @@ export default async function JobListingsPage({
     const { data, error: supabaseError } = await supabase
       .from('jobs')
       .select('*')
+      .eq('status', 'active')
       .order('posted_time', { ascending: false });
 
     if (supabaseError) {
@@ -144,9 +145,9 @@ export default async function JobListingsPage({
     if (data) {
       allJobs = data.map(transformSupabaseJobToFrontendJob);
     }
-  } catch (err: any) {
-    console.error('Error fetching jobs from Supabase:', err.message);
-    fetchError = err.message;
+  } catch (err: unknown) {
+    console.error('Error fetching jobs from Supabase:', (err as Error).message);
+    fetchError = (err as Error).message;
   }
 
   if (fetchError) {

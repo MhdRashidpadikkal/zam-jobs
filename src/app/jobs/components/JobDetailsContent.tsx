@@ -20,6 +20,8 @@ import {
   CheckCircle
 } from '@mui/icons-material';
 import { Job } from '@/types/job';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+
 
 interface JobDetailsContentProps {
   job: Job;
@@ -29,8 +31,8 @@ const JobDetailsContent: React.FC<JobDetailsContentProps> = ({ job }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const formatSalary = (min: number, max: number, currency: string) => {
-    return `${currency}${min.toLocaleString()} - ${currency}${max.toLocaleString()}`;
+  const formatSalary = (min: number, max: number) => {
+    return ` ${min.toLocaleString()} - ${max.toLocaleString()}`;
   };
 
   return (
@@ -75,7 +77,7 @@ const JobDetailsContent: React.FC<JobDetailsContentProps> = ({ job }) => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <AttachMoney sx={{ fontSize: 20, mr: 1, color: theme.palette.text.secondary }} />
             <Typography variant="h6" sx={{ fontWeight: 600 }}>
-              {formatSalary(job.salaryRange.min, job.salaryRange.max, job.salaryRange.currency)}
+              {formatSalary(job.salaryRange.min, job.salaryRange.max)}
             </Typography>
           </Box>
         </Box>
@@ -83,12 +85,12 @@ const JobDetailsContent: React.FC<JobDetailsContentProps> = ({ job }) => {
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
           <Schedule sx={{ fontSize: 18, mr: 1, color: theme.palette.text.secondary }} />
           <Typography variant="body1" color="text.secondary">
-            Posted {job.postedTime}
+            Posted {formatDistanceToNow(parseISO(job.postedTime), { addSuffix: true })}
           </Typography>
         </Box>
 
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {job.tags.map((tag, index) => (
+          {job?.tags?.map((tag: string, index: number) => (
             <Chip
               key={index}
               label={tag}

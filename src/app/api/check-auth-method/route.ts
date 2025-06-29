@@ -1,5 +1,6 @@
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { NextRequest, NextResponse } from 'next/server';
+import { User, UserIdentity } from '@supabase/supabase-js'; // Import User and UserIdentity types
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,17 +14,21 @@ export async function POST(req: NextRequest) {
     }
 
     try {
+      // Use the ListUsersResponse type from Supabase for better type safety
+      // Although Supabase client doesn't directly export ListUsersResponse,
+      // we can infer it or define a minimal interface.
+      // For now, let's use a more specific type for `data` that includes `users`.
       const { data, error } = await supabaseAdmin.auth.admin.listUsers();
-      
+
       if (error) {
         console.error('Error listing users:', {
           error: error.message,
           code: error.code,
           status: error.status
         });
-        
+
         return NextResponse.json(
-          { 
+          {
             error: 'Failed to list users',
             details: {
               code: error.code,
@@ -35,44 +40,64 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      if (!data?.users) {
+      // Ensure data.users exists and is an array
+      if (!data?.users || !Array.isArray(data.users)) {
+        // It's better to return 200 with exists: false if no users are found,
+        // rather than 404, as the request to check exists succeeded.
         return NextResponse.json(
-          { exists: false },
-          { status: 404 }
+          { exists: false, message: 'No users found in the database.' },
+          { status: 200 }
         );
       }
 
-      const user = data.users.find((u: any) => u.email === email);
+      // Find the user by email, ensuring `u` is typed as `User`
+      const user = data.users.find((u: User) => u.email === email);
 
       if (!user) {
         return NextResponse.json({ exists: false });
       }
 
-      const isEmailPassword = user.identities?.some((i: any) => i.provider === 'email');
-      return NextResponse.json({ exists: true, isEmailPassword });
-    } catch (error: any) {
-      console.error('Network error:', {
-        message: error.message,
-        cause: error.cause,
-        code: error.code
-      });
+      // Check if any identity has 'email' provider, ensuring `i` is typed as `UserIdentity`
+      const isEmailPassword = user.identities?.some((i: UserIdentity) => i.provider === 'email');
+
+      return NextResponse.json({ exists: true, isEmailPassword, provider: isEmailPassword ? 'email' : (user.identities && user.identities.length > 0 ? user.identities[0].provider : 'unknown') });
+    } catch (error: unknown) { // Catching unknown for general errors
+      console.error('Network error or unexpected error during user listing:', error);
+
+      let errorMessage = 'An unknown network error occurred.';
+      let errorCode = 'UNKNOWN_ERROR';
+      let errorCause;
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        const errorObj = error as unknown as Record<string, unknown>;
+        errorCode = (typeof errorObj.code === 'string') ? errorObj.code : 'GENERIC_ERROR'; // no 'any'
+        errorCause = error.cause;
+      }
       
+
       return NextResponse.json(
-        { 
-          error: 'Network connection failed',
+        {
+          error: 'Network connection failed or unexpected server error',
           details: {
-            message: error.message,
-            code: error.code,
-            cause: error.cause
+            message: errorMessage,
+            code: errorCode,
+            cause: errorCause
           }
         },
         { status: 500 }
       );
     }
-  } catch (error) {
+  } catch (error: unknown) { // Catching unknown for general errors in the outer try-catch
     console.error('Error in check-auth-method:', error);
+
+    let errorMessage = 'Internal server error.';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

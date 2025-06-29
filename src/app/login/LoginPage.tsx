@@ -65,7 +65,7 @@ export default function LoginPage() {
             scopes: 'email profile',
           },
         });
-  
+        console.log("getted google data", data)
         if (error) {
           console.error('Google Sign In Error:', error);
           setWarning('Failed to sign in with Google. Please try again.');
@@ -272,7 +272,7 @@ export default function LoginPage() {
               {/* Register Link */}
               <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="body2" color="text.secondary">
-                  Don't have an account?{' '}
+                  Don&apos;t have an account?{' '}
                   <Link component={NextLink} href="/register" sx={{ fontWeight: 600 }}>
                     Create Account
                   </Link>
