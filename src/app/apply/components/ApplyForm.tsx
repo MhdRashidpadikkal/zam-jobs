@@ -1,22 +1,22 @@
 'use client'
-import { Box, Button, Card, CardContent, Container, Step, StepLabel, Stepper, Typography, useTheme } from '@mui/material'
+import { Box, Button, Card, CardContent, Container, Step, StepLabel, Stepper, Typography, useTheme, Alert, AlertTitle } from '@mui/material'
 import {
   validatePersonalInfo,
   validateQualification,
   validateExperience,
-  // validateResume,
 } from "@/utils/formValidation";
 
 import React, { useState } from 'react'
-import PersonalDetails  from './PersonalDetails'
+import PersonalDetails from './PersonalDetails'
 import Experience from './Experience'
 import Qualification from './Qualification'
 import Resume from './Resume'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import SuccessAlert from './SucessMessage';
+// import SuccessAlert from './SucessMessage'; // We'll handle success message differently
 import { StepErrors } from '@/store/slices/formSlice';
 import { supabase } from '@/lib/supabaseClient';
+import PaymentInstructionsPage from './PaymentInstructionsPage'; // Import the new component
 
 const steps = ["Personal Information", "Qualification", "Experience", "Upload Resume"]
 
@@ -24,20 +24,19 @@ export default function ApplyForm() {
   const formData = useSelector((state: RootState) => state.form);
   const [stepErrors, setStepErrors] = useState<StepErrors>({});
   const [success, setSuccess] = useState(false)
-  const [localResume, setLocalResume] = useState<File | null>(null); 
+  const [localResume, setLocalResume] = useState<File | null>(null);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // New state for temporary success alert
 
 
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const handleBack = () => setActiveStep(activeStep - 1)
   const handleSubmit = async () => {
-    const formDataToSend = { ...formData };
-    console.log('Submitting form data:', formDataToSend);
-  
+  // const formDataToSend = { ...formData };
+
     try {
       let resumeUrl: string | null = null;
-      console.log("localResume is ", localResume);
-  
+
       // Upload resume if selected
       if (localResume) {
         const fileExt = localResume.name.split('.').pop();
@@ -46,27 +45,20 @@ export default function ApplyForm() {
           .from('resumes')
           .upload(fileName, localResume);
 
-          console.log("upload started", fileName, localResume)
-  
           if (uploadError) {
-            console.error("Upload error details:", uploadError);
             throw uploadError;
           }
-
-          console.log("upload completed")
             
         const { data: publicUrlData } = supabase
           .storage
           .from('resumes')
           .getPublicUrl(fileName);
-  
+
         resumeUrl = publicUrlData?.publicUrl ?? null;
-        console.log('Resume URL:', resumeUrl);
       }
 
       const { data: { user } } = await supabase.auth.getUser()
-      console.log("user is is", user?.id)
-  
+
       // Insert form data to Supabase DB
       const { error: insertError } = await supabase.from('job_applications').insert([
         {
@@ -78,27 +70,32 @@ export default function ApplyForm() {
           whatsapp_no: formData.personalInfo.whatsAppNo,
           place: formData.personalInfo.place,
           preferred_location: formData.personalInfo.preferredLocation,
-  
+
           qualification: formData.higherQualification.qualification,
           institute: formData.higherQualification.institute,
           year_completed: formData.higherQualification.yearCompleted,
-  
+
           current_company: formData.experience.currentCompany,
           current_position: formData.experience.currentPosition,
           years_of_experience: formData.experience.yearsOfExperience,
           is_fresher: formData.experience.isfresher,
-  
+
           resume_url: resumeUrl,
         },
       ]);
-  
+
       if (insertError) throw insertError;
-      console.log("insert error is ", insertError);
-  
-      setSuccess(true);
-      setActiveStep(activeStep + 1);
+
+      setSuccess(true); // This will now trigger the PaymentInstructionsPage
+      setShowSuccessMessage(true); // Show the temporary success alert
+      // Optionally hide the success message after a few seconds
+      setTimeout(() => setShowSuccessMessage(false), 5000); 
+
+      // You might not want to advance the step here if PaymentInstructionsPage is rendered as a full page
+      // setActiveStep(activeStep + 1); 
     } catch (err) {
       console.error('Form submission error:', err);
+      // Handle error, maybe show an error alert
     }
   };
   
@@ -167,8 +164,36 @@ export default function ApplyForm() {
   return (
     <>
       <Container maxWidth="md" sx={{ py: 5 }}>
-        {success ? (
-          <SuccessAlert />
+        {showSuccessMessage && ( // Render temporary success message
+          <Alert
+            severity="success"
+            variant="outlined"
+            sx={{
+              mb: 4,
+              border: '1px solid',
+              borderColor: 'success.main',
+              backgroundColor: '#E6F9F3',
+              color: 'success.main',
+              borderRadius: 2,
+              fontFamily: 'var(--font-inter), "Inter", sans-serif',
+              boxShadow: '0 2px 10px rgba(0, 179, 131, 0.15)',
+            }}
+          >
+            <AlertTitle
+              sx={{
+                fontWeight: 600,
+                fontSize: '1.25rem',
+                color: 'success.main',
+              }}
+            >
+              Success
+            </AlertTitle>
+            Your application has been <strong>submitted successfully!</strong>
+          </Alert>
+        )}
+
+        {success ? ( // Conditional rendering for PaymentInstructionsPage
+          <PaymentInstructionsPage />
         ) : (
           <Card elevation={6} sx={{ borderRadius: 3 }}>
             <CardContent>
@@ -206,8 +231,8 @@ export default function ApplyForm() {
                     variant="contained"
                     sx={{
                       px: 4,
-                      background: activeStep === steps.length - 1 
-                        ? 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)' 
+                      background: activeStep === steps.length - 1
+                        ? 'linear-gradient(135deg, #002D62 0%, #3B82F6 100%)'
                         : theme.palette.primary.main,
                       color: "white",
                       '&:hover': {

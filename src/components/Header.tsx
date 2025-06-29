@@ -1,275 +1,17 @@
-// "use client";
-
-// import {
-//   Box,
-//   Container,
-//   Drawer,
-//   IconButton,
-//   List,
-//   ListItem,
-//   Typography,
-// } from "@mui/material";
-// import Image from "next/image";
-// import { usePathname } from "next/navigation";
-// import { useTheme } from "@mui/material/styles";
-// import Link from "next/link";
-// import { useState } from "react";
-// import DehazeIcon from "@mui/icons-material/Dehaze";
-// import CloseIcon from "@mui/icons-material/Close";
-
-// interface NavLinkTypes {
-//   title: string;
-//   url: string;
-// }
-// const navLinks: NavLinkTypes[] = [
-//   {
-//     title: "Home",
-//     url: "/",
-//   },
-//   {
-//     title: "Jobs",
-//     url: "/jobs",
-//   },
-//   {
-//     title: "About",
-//     url: "/about",
-//   },
-//   {
-//     title: "Contact",
-//     url: "/contact",
-//   },
-// ];
-
-// export default function Header() {
-//   const pathname = usePathname();
-//   const theme = useTheme();
-//   const [toggle, setToggle] = useState<boolean>(false);
-//   const toggleDrawer = (toggle: boolean) => () => {
-//     setToggle(toggle);
-//   };
-
-
-//   return (
-//     <Container maxWidth="lg" sx={{marginBottom:{xs:'70px',md:'100px'}}}>
-//       <Box
-//         sx={{
-//           position: "relative",
-//           top:"30px",
-//           flexGrow: 1,
-//           display: "flex",
-//           justifyContent: "center",
-//           // width: "100vw",
-//           zIndex: "10",
-          
-//         }}
-//       >
-//         <Box
-//           sx={{
-//             display: "flex",
-//             justifyContent: "space-between",
-//             alignItems: "center",
-//             width: { xs: "90vw", md: "80vw" },
-//             borderRadius: { xs: "15px", md: "50px" },
-//             px: 2,
-//             border: 1,
-//             borderColor: "#D8D8DB",
-//             backgroundColor:'white'
-//           }}
-//         >
-//           {/* Left side: Logo */}
-//           <Box sx={{ display: "flex", alignItems: "center", px: 1 }}>
-//             <IconButton component={Link} href="/" size="large" edge="start">
-//               <Image
-//                 src="/images/common/zam-job-logo-icon.png"
-//                 alt="Zam Job Logo"
-//                 width={50}
-//                 height={50}
-//                 priority
-//               />
-//             </IconButton>
-//             <Typography
-//               component={Link}
-//               href="/"
-//               sx={{
-//                 color: theme.palette.primary.main,
-//                 textDecoration: "none",
-//                 fontWeight: "bold",
-//                 fontSize: "1.2em",
-//               }}
-//             >
-//               ZamJobs
-//             </Typography>
-//           </Box>
-
-//           {/* Navigation Links */}
-//           <Box
-//             sx={{
-//               display: { xs: "none", md: "flex" },
-//               alignItems: "center",
-//               gap: 2,
-//             }}
-//           >
-//             {navLinks.map((items, index) => {
-//               return (
-//                 <Typography
-//                   key={index}
-//                   component={Link}
-//                   href={items.url}
-//                   sx={{
-//                     px: 2,
-//                     color:
-//                       pathname === items.url
-//                         ? theme.palette.primary.main
-//                         : theme.palette.primary.contrastText,
-//                     textDecoration: "none",
-//                     fontWeight:'600',
-//                     fontSize: "1.1rem",
-//                     "&:hover": {
-//                       color:
-//                         pathname === items.url
-//                           ? theme.palette.primary.main
-//                           : theme.palette.primary.main,
-//                     },
-//                   }}
-//                 >
-//                   {items.title}
-//                 </Typography>
-//               );
-//             })}
-//           </Box>
-
-//           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-//             <IconButton
-//               onClick={toggleDrawer(true)}
-//               sx={{
-//                 backgroundColor: theme.palette.primary.main,
-//                 borderRadius: "5px",
-//                 padding: 1,
-//                 "&:hover": {
-//                   backgroundColor: theme.palette.secondary.main,
-//                 },
-//               }}
-//             >
-//               <DehazeIcon sx={{ color:'white' }} />
-//             </IconButton>
-//           </Box>
-
-//           <Box
-//             component={Link}
-//             href="/apply"
-//             sx={{
-//               display: { xs: "none", md: "flex" },
-//               color: "white",
-//               backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
-//               textDecoration: "none",
-//               px: 4,
-//               py: 2,
-//               borderRadius: "50px",
-//               transition: "background-color 0.3s ease",
-//               "&:hover": {
-//                 backgroundImage: `linear-gradient(135deg,rgb(15, 63, 141), ${theme.palette.primary.dark})`,
-//               },
-//             }}
-//           >
-//             <Typography>Apply Now</Typography>
-//           </Box>
-//         </Box>
-//         <Box>
-//           <Drawer
-//             sx={{ position: "relative" }}
-//             anchor="top"
-//             open={toggle}
-//             onClose={toggleDrawer(false)}
-//           >
-//             <List sx={{ padding: 2 }}>
-//               {navLinks.map((item, index) => {
-//                 return (
-//                   <ListItem
-//                     onClick={toggleDrawer(false)}
-//                     sx={{ padding: 2, borderBottom: "1px solid gray" }}
-//                     key={index}
-//                     component={Link}
-//                     href={item.url}
-//                   >
-//                     <Typography
-//                       sx={{
-//                         color:
-//                           pathname === item.url
-//                             ? theme.palette.primary.main
-//                             : theme.palette.primary.contrastText,
-//                         fontSize: "16px",
-//                         fontWeight: "600",
-//                         "&:hover": {
-//                           color: theme.palette.primary.main,
-//                           fontWeight: "700",
-//                           fontSize: "16px",
-//                         },
-//                       }}
-//                     >
-//                       {item.title}
-//                     </Typography>
-//                   </ListItem>
-//                 );
-//               })}
-//               <Box
-//               onClick={toggleDrawer(false)}
-//                 component={Link}
-//                 href="/apply"
-//                 sx={{
-//                   display: { xs: "flex", md: "none", justifyContent: "center" },
-//                   color: "white",
-//                   backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
-//                   textDecoration: "none",
-//                   px: 4,
-//                   py: 2,
-//                   mt: 2,
-//                   borderRadius: "10px",
-//                   transition: "background-color 0.3s ease",
-//                   "&:hover": {
-//                     backgroundImage: `linear-gradient(135deg,rgb(15, 63, 141), ${theme.palette.primary.dark})`,
-//                   },
-//                 }}
-//               >
-//                 <Typography>Apply Now</Typography>
-//               </Box>
-//             </List>
-//             <IconButton
-//               onClick={toggleDrawer(!toggle)}
-//               sx={{
-//                 position: "absolute",
-//                 right: "5%",
-//                 top: "6.5%",
-//                 padding: "10px",
-//               }}
-//             >
-//               <CloseIcon
-//                 sx={{
-//                   backgroundColor: theme.palette.primary.main,
-//                   color: theme.palette.primary.contrastText,
-//                   borderRadius: 2,
-//                   "&:hover": {
-//                     backgroundColor: theme.palette.secondary.main,
-//                   },
-//                 }}
-//               />
-//             </IconButton>
-//           </Drawer>
-//         </Box>
-//       </Box>
-//     </Container>
-//   );
-// }
 
 "use client";
 
 import {
   Box,
+  Button,
   Container,
   Drawer,
   IconButton,
   InputBase,
   List,
   ListItem,
+  Menu,
+  MenuItem,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -280,6 +22,7 @@ import { useState } from "react";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
+import { useAuth } from "@/context/AuthContext";
 
 
 interface NavLinkTypes {
@@ -295,18 +38,45 @@ const navLinks: NavLinkTypes[] = [
 ];
 
 export default function Header() {
+  const { user, hasApplied, isApproved, logout } = useAuth();
+
+
   const pathname = usePathname();
   const theme = useTheme();
   const router = useRouter();
   const [toggle, setToggle] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = async () => {
+    await logout();         // call the context logout
+  handleMenuClose();      // close the menu in the UI
+  router.push("/login");
+  };
+
+  const getFirstLetter = (email: string | null | undefined) => {
+    if (email) {
+      return email.charAt(0).toUpperCase();
+    }
+    return ''; 
+  };
+
   const toggleDrawer = (toggle: boolean) => () => setToggle(toggle);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       router.push(`/jobs?search=${encodeURIComponent(searchTerm.trim())}`);
-      setToggle(false); // close drawer if on mobile
+      setToggle(false); 
     }
   };
 
@@ -423,7 +193,28 @@ export default function Header() {
           </Box>
 
           {/* Desktop Apply Button */}
-          <Box
+          {user === null ? (
+            <Box
+            component={Link}
+            href="/login"
+            sx={{
+              display: { xs: "none", md: "flex" },
+              color: "white",
+              backgroundImage: `linear-gradient(135deg, rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
+              textDecoration: "none",
+              px: 4,
+              py: 2,
+              borderRadius: "50px",
+              transition: "background-color 0.3s ease",
+              "&:hover": {
+                backgroundImage: `linear-gradient(135deg, rgb(15, 63, 141), ${theme.palette.primary.dark})`,
+              },
+            }}
+          >
+            <Typography>Login</Typography>
+          </Box>
+          ) : user && hasApplied === false ? (
+            <Box
             component={Link}
             href="/apply"
             sx={{
@@ -442,6 +233,49 @@ export default function Header() {
           >
             <Typography>Apply Now</Typography>
           </Box>
+          ) : (
+            (
+              <>
+               <Button
+                  color="inherit"
+                  onClick={handleMenuClick}
+                  sx={{
+                    width: 40, 
+                    height: 40, 
+                    borderRadius: '50%', 
+                    minWidth: 0, 
+                    padding: 0, 
+                    backgroundImage: `linear-gradient(135deg, rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
+                    color: 'white', 
+                    fontSize: '1rem', 
+                    fontWeight: 'bold', 
+                    '&:hover': {
+                      opacity: 0.9,
+                      transform: 'scale(1.05)'
+                    },
+                    transition: 'all 0.2s ease-in-out', 
+                  }}
+                >
+                  <Typography variant="body1" component="span">
+                    {getFirstLetter(user?.email)}
+                  </Typography>
+                </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleMenuClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem>
+                  Status: {isApproved ? 'Active' : 'Pending'}
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
+            </>
+            )
+          ) }
         </Box>
 
         {/* Mobile Drawer */}

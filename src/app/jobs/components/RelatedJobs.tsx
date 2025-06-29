@@ -3,7 +3,8 @@ import {
   Box,
   Typography,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Grid
 } from '@mui/material';
 import { useAppSelector } from '@/store/hooks';
 import { Job } from '@/types/job';
@@ -34,7 +35,7 @@ const RelatedJobs: React.FC<RelatedJobsProps> = ({ currentJob, onViewDetails }) 
   }
 
   return (
-    <Box sx={{ mt: 6 }}>
+    <Box sx={{ mt: 6}}>
       <Typography
         variant="h4"
         sx={{
@@ -46,13 +47,13 @@ const RelatedJobs: React.FC<RelatedJobsProps> = ({ currentJob, onViewDetails }) 
         Related Jobs
       </Typography>
 
-      <Box display="flex" flexWrap="wrap" gap={3}>
+      <Grid container spacing={5} >
         {relatedJobs.map((job: Job) => (
-          <Box sx={{ width: { xs: '100%', sm: '50%', md: '33.33%' } }} key={job.id}>
+          <Grid size={{ xs: 12, lg: 4 }} key={job.id}>
             <JobCard job={job} onViewDetails={onViewDetails} />
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </Box>
   );
 };

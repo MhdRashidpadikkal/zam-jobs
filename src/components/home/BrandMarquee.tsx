@@ -121,10 +121,6 @@ const BrandMarquee = () => {
                 <Box
                   key={`${i}-${index}`}
                   sx={{ pr: { xs: 5, sm: 10 }, minWidth: 100, }}
-                  sx={{
-                    pr: { xs: 5, sm: 10 },
-                    minWidth: 120,
-                  }}
                 >
                   <Image
                     src={logo.src}
