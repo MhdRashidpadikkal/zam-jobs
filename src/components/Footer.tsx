@@ -23,22 +23,21 @@ const Footer = () => {
         pt: 8,
         pb: 4,
         mt: 10,
-        mb: 4,
-        color: 'white',
-        borderRadius: 5
+        color: 'white'
+       
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={{ xs: 4, md: 1 }}>
+        <Grid container spacing={{ xs: 4,sm:2, md: 1 }}>
           {/* Brand & Mission */}
 
           <Grid size={{
-            xs:12, md:4
+            xs:12,sm:4, md:4
           }}>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', flexWrap:'wrap',alignItems:'center' }}>
             <Image src="/images/common/zaam_logo_white.png" alt="Logo" width={100} height={100} />
-            <Typography variant="h4" sx={{ fontWeight: 700, fontSize: '3rem', mt: 2 }}>
-              Zaam Jobs
+            <Typography variant="h4" sx={{ fontWeight: 700, fontSize:{sm:'2rem',md:'2.5rem'} , mt: 2 }}>
+              ZamJobs
             </Typography>
             </Box>
             <Typography variant="body2" mt={2} sx={{ opacity: 0.5, maxWidth: '22rem' }}>

@@ -1,9 +1,10 @@
-import { CssBaseline } from "@mui/material";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Footer from "@/components/Footer";
 import { Analytics } from '@vercel/analytics/next'
+import ToastProvider from "./ToastProvider";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,12 +19,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans`}>
-        <CssBaseline />
-        <Providers>
-          {children}
-          <Footer />
-          <Analytics />
-        </Providers>
+          <Providers>
+            <ToastProvider>
+            {children}
+            </ToastProvider>
+            <Footer />
+            <Analytics />
+          </Providers>
       </body>
     </html>
   );

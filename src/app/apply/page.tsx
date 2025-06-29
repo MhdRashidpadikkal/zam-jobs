@@ -1,10 +1,13 @@
 import React from 'react'
 import ApplyForm from './components/ApplyForm'
+import ProtectedRoute from '@/components/ProtectedRoute'
 
-export default function ApplyPage () {
+export default function ApplyPage() {
   return (
     <>
-      <ApplyForm/>
+      <ProtectedRoute>
+        <ApplyForm />
+      </ProtectedRoute>
     </>
   )
 }

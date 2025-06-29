@@ -15,6 +15,7 @@ import {
   alpha,
   styled,
   keyframes,
+  useTheme,
 } from '@mui/material';
 import {
   Security,
@@ -194,6 +195,7 @@ const CTACard = styled(Card)(({ theme }) => ({
 }));
 
 const WhyChooseUs = () => {
+  const theme = useTheme()
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -242,7 +244,7 @@ const WhyChooseUs = () => {
   const stats = [
     { number: "5000+", label: "Jobs Placed", icon: CheckCircle },
     { number: "2000+", label: "Happy Clients", icon: Star },
-    { number: "24/7", label: "Support Available", icon: Schedule },
+    { number: "24/7", label: "Support", icon: Schedule },
     { number: "98%", label: "Success Rate", icon: Security }
   ];
 
@@ -252,8 +254,7 @@ const WhyChooseUs = () => {
         position: 'relative',
         minHeight: '100vh',
         overflow: 'hidden',
-        py: 10,
-        mt: 10,
+        py:4
       }}
     >
       {/* Background decorative elements */}
@@ -282,8 +283,8 @@ const WhyChooseUs = () => {
             <Chip
               label="WHY CHOOSE ZAAM JOB MEDIATE"
               sx={{
-                backgroundColor: alpha('#002D62', 0.1),
-                color: '#002D62',
+               backgroundImage: `linear-gradient(135deg,rgba(59, 130, 246, 1), ${theme.palette.primary.dark})`,
+                color: 'white',
                 border: `1px solid ${alpha('#002D62', 0.2)}`,
                 fontWeight: 600,
                 mb: 3,
@@ -296,7 +297,7 @@ const WhyChooseUs = () => {
               variant="h2"
               component="h1"
               sx={{
-                fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' },
+                fontSize: { xs: '2.2em', md: '3.5rem', lg: '4rem' },
                 fontWeight: 700,
                 color: '#1a202c',
                 mb: 3,
@@ -316,7 +317,7 @@ const WhyChooseUs = () => {
                 maxWidth: '64rem',
                 mx: 'auto',
                 lineHeight: 1.6,
-                fontSize: '1.25rem',
+                fontSize: {xs:'1em',md:'1.25rem'},
               }}
             >
               Whether you&apos;re searching for the perfect job opportunity or looking to hire exceptional talent, 
@@ -530,7 +531,7 @@ const WhyChooseUs = () => {
                   mb: 4,
                   maxWidth: '32rem',
                   mx: 'auto',
-                  fontSize: '1.25rem',
+                  fontSize: {xs:"1rem",md:'1.25rem'},
                 }}
               >
                 Join thousands of successful job placements and let us connect you with your perfect opportunity today.
@@ -570,6 +571,7 @@ const WhyChooseUs = () => {
                   py: 2,
                   borderRadius: '12px',
                   textTransform: 'none',
+                  textWrap:'nowrap',
                   fontSize: '1.125rem',
                   boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
                   transition: 'all 0.3s ease',

@@ -3,7 +3,7 @@ export interface Job {
   title: string;
   company: string;
   location: string;
-  jobType: 'Full-time' | 'Part-time' | 'Contract' | 'Internship' | 'Freelance';
+  jobType: string;
   salaryRange: {
     min: number;
     max: number;
@@ -12,7 +12,7 @@ export interface Job {
   postedTime: string;
   tags: string[];
   category: string;
-  experienceLevel: 'Entry' | 'Mid' | 'Senior' | 'Lead' | 'Executive';
+  experienceLevel: string;
   description: string;
   responsibilities: string[];
   skills: string[];
